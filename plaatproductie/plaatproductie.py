@@ -20,14 +20,12 @@ n= 3
 t = 0.008
 Bp = 12
 bp = 3
-Lp= 12*2
-A= 144*2
+Lp= 12
+A= 144
 hvrang = 1.25
 hspant = 0.16
 
-nzaathout = 8
-
-d = 1
+nzaathout = 8 
 
 def totaal(sg):
     nplaat = Bp/bp
@@ -75,11 +73,12 @@ def plot():
     plt.plot(ss,totaal(4), c="green"  ,label="vrangafstand = 4000mm")
     plt.xlabel("stiffner spacing [mm]")
     plt.ylabel("kosten [euro]")
-    titeltje= "Totale Kosten als functie van stiffnerspacing, voor handmatige productie van groot platen"
+    titeltje= "Totale Kosten als functie van stiffnerspacing, voor handmatige productie van kleine platen"
     plt.title(titeltje)
     plt.legend(loc = "upper right", shadow = True, fontsize="medium")
+    figure.savefig("hand-kleine.png")
     #figure.colorbar(surf,shrink=0.5,aspect=5)
     #ax.legend(loc = "lower right", shadow = True, fontsize="large")
-    plt.show()
+
 
 plot()
