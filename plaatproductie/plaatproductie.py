@@ -27,7 +27,7 @@ hspant = 0.16
 
 nzaathout = 8
 
-
+d = 1
 
 def totaal(sg):
     nplaat = Bp/bp
