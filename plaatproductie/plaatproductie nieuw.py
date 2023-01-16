@@ -159,7 +159,7 @@ def plot(self,titel):
     plt.plot(ss,self(2), c="orange" ,label="vrangafstand = 2000mm")
     plt.plot(ss,self(3), c="blue"   ,label="vrangafstand = 3000mm")
     plt.plot(ss,self(4), c="green"  ,label="vrangafstand = 4000mm")
-    plt.xlabel("stiffner spacing [mm]")
+    plt.xlabel("stiffner spacing [m]")
     plt.ylabel("kosten [euro]")
     titeltje= "Totale Kosten als functie van stiffnerspacing, voor "+titel
     plt.title(titeltje)
