@@ -47,16 +47,16 @@ class totaal():
         nplaat = Bp/bp
         nlas = nplaat -1
         nspant = Bp/ss-nzaathout -1  
-        nvrang = Lp/sg
+        nvrang = 2*Lp/sg
         nkruising = nvrang*(nspant+nzaathout) 
-        Llas_plaat = nlas*Lp 
-        Llas_spant = nspant*Lp*2  
+        Llas_plaat = nlas*2*Lp 
+        Llas_spant = nspant*2*Lp*2  
         Llas_vrang_hori = nvrang*Bp*2  
-        Llas_zaathout = nzaathout*Lp*2   
+        Llas_zaathout = nzaathout*2*Lp*2   
         Llas_vrang_verti = hvrang*nkruising*4 +nspant*hspant*2
         Llas = Llas_plaat + Llas_spant + Llas_vrang_hori + Llas_zaathout + Llas_vrang_verti
 
-        materiaal = 35521200+tp + 3415500/sg + 3552120*A/sg - 7488000*A_bulb + 1138500+3900*tp*Llas
+        materiaal = 35521200+tp + 3415500/sg + 3552120*2*A/sg - 7488000*A_bulb + 1138500+3900*tp*Llas
 
         personeel = capaciteit*(150+15/ss+600/sg)
 
@@ -91,16 +91,16 @@ class totaal():
         nplaat = Bp/bp
         nlas = nplaat -1
         nspant = Bp/ss-nzaathout -1  
-        nvrang = Lp/sg
-        nkruising = nvrang*(nspant+nzaathout)
-        Llas_plaat = nlas*Lp  
-        Llas_spant = nspant*Lp*2  
+        nvrang = 2*Lp/sg
+        nkruising = nvrang*(nspant+nzaathout) 
+        Llas_plaat = nlas*2*Lp 
+        Llas_spant = nspant*2*Lp*2  
         Llas_vrang_hori = nvrang*Bp*2  
-        Llas_zaathout = nzaathout*Lp*2   
+        Llas_zaathout = nzaathout*2*Lp*2   
         Llas_vrang_verti = hvrang*nkruising*4 +nspant*hspant*2
         Llas = Llas_plaat + Llas_spant + Llas_vrang_hori + Llas_zaathout + Llas_vrang_verti
 
-        materiaal = 35521200+tp + 3415500/sg + 3552120*A/sg - 7488000*A_bulb + 1138500+3900*tp*Llas
+        materiaal = 35521200+tp + 3415500/sg + 3552120*2*A/sg - 7488000*A_bulb + 1138500+3900*tp*Llas
 
         personeel = capaciteit*(45+81/ss+4320/sg)
 
@@ -135,16 +135,16 @@ class totaal():
         nplaat = Bp/bp
         nlas = nplaat -1
         nspant = Bp/ss-nzaathout -1  
-        nvrang = Lp/sg
-        nkruising = nvrang*(nspant+nzaathout)
-        Llas_plaat = nlas*Lp  
-        Llas_spant = nspant*Lp*2  
+        nvrang = 2*Lp/sg
+        nkruising = nvrang*(nspant+nzaathout) 
+        Llas_plaat = nlas*2*Lp 
+        Llas_spant = nspant*2*Lp*2  
         Llas_vrang_hori = nvrang*Bp*2  
-        Llas_zaathout = nzaathout*Lp*2   
+        Llas_zaathout = nzaathout*2*Lp*2   
         Llas_vrang_verti = hvrang*nkruising*4 +nspant*hspant*2
         Llas = Llas_plaat + Llas_spant + Llas_vrang_hori + Llas_zaathout + Llas_vrang_verti
 
-        materiaal = 35521200+tp + 3415500/sg + 3552120*A/sg - 7488000*A_bulb + 1138500+3900*tp*Llas
+        materiaal = 35521200+tp + 3415500/sg + 3552120*2*A/sg - 7488000*A_bulb + 1138500+3900*tp*Llas
 
         personeel = capaciteit*(45+81/ss+4320/sg)
 
@@ -167,7 +167,7 @@ def plot(self,titel):
     figure.savefig("./plaatproductie/"+titel+".png")
     #figure.colorbar(surf,shrink=0.5,aspect=5)
     #ax.legend(loc = "lower right", shadow = True, fontsize="large")
-
+    
 plot(totaal.groot_robot_5,"robot, groot, 5 stations")
 plot(totaal.groot_robot_4,"robot, groot, 4 stations")
 plot(totaal.klein_robot_5,"robot, klein, 5 stations")
