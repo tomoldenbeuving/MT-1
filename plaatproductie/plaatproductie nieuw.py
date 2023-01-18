@@ -176,7 +176,7 @@ def plot(self,titel):
 
 
 def plot_test(self,titel):
-    fig, ax = plt.subplots()
+    fig, ax = plt.subplots(figsize=(16,9))
     fig.subplots_adjust(right=0.75)
 
     twin1 = ax.twinx()
@@ -204,9 +204,22 @@ def plot_test(self,titel):
     twin1.tick_params(axis='y', colors=p2.get_color(), **tkw)
     twin2.tick_params(axis='y', colors=p3.get_color(), **tkw)
     ax.tick_params(axis='x', **tkw)
+    titeltje= "Totale Kosten als functie van stiffnerspacing, voor "+titel+"met variabele y-as"
+    ax.set_title(titeltje)
 
-    ax.legend(handles=[p1, p2, p3])
+    ax.set_yticks(np.arange(min(self(2)),max(self(2)),0.01E6))
+    twin1.set_yticks(np.arange(min(self(3)),max(self(3)),0.01E6))
+    twin2.set_yticks(np.arange(min(self(4)),max(self(4)),0.01E6))
+    box = ax.get_position()
+    ax.set_position([box.x0, box.y0 + box.height * 0.1,
+                 box.width, box.height * 0.9])
+
+    # Put a legend below current axis
+    ax.legend(handles=[p1, p2, p3],loc='upper center', bbox_to_anchor=(0.5, -0.1),
+          fancybox=True, shadow=True, ncol=5)
     fig.savefig("./plaatproductie/"+titel+" 3-in-1.png")
+    plt.show()
+
 
 plot(totaal.groot_robot_5,"robot, groot, 5 stations")
 plot(totaal.groot_robot_4,"robot, groot, 4 stations")
