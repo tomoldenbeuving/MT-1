@@ -464,7 +464,7 @@ class vastekosten():
 
         vastekosten = 3643200
 
-        totaal = vastekosten
+        totaal = vastekosten*ss/ss
         return totaal
 
     def groot_hand(sg):
@@ -487,7 +487,7 @@ class vastekosten():
 
         vastekosten = 3643200
 
-        totaal = vastekosten 
+        totaal = vastekosten*ss/ss
         return totaal
 
     def klein_robot_5(sg):
@@ -510,7 +510,7 @@ class vastekosten():
 
         vastekosten = 1375000*((0.5+0.9/ss+24/sg*317)/8760)+3187800
 
-        totaal = vastekosten
+        totaal = vastekosten*ss/ss
         return totaal
 
     def groot_robot_4(sg):
@@ -533,7 +533,7 @@ class vastekosten():
 
         vastekosten = 1200000*((0.5+0.9/ss+24/sg*159)/8760)+3187800
 
-        totaal = vastekosten 
+        totaal = vastekosten *ss/ss
         return totaal
 
     def klein_robot_4(sg):
@@ -556,7 +556,7 @@ class vastekosten():
 
         vastekosten = 1100000*((0.5+0.9/ss+24/sg*317)/8760)+3187800
 
-        totaal = vastekosten
+        totaal = vastekosten*ss/ss
         return totaal
 
     def groot_robot_5(sg):
@@ -579,7 +579,7 @@ class vastekosten():
 
         vastekosten = 1500000*((0.5+0.9/ss+24/sg*159)/8760)+3187800
 
-        totaal = vastekosten
+        totaal = vastekosten*ss/ss
         return totaal
 
 
