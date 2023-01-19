@@ -583,16 +583,19 @@ class vastekosten():
         return totaal
 
 
-def plot(self,titel):
-    figure = plt.figure()
-    plt.plot(ss,self(2), c="orange" ,label="vrangafstand = 2000mm")
-    plt.plot(ss,self(3), c="blue"   ,label="vrangafstand = 3000mm")
-    plt.plot(ss,self(4), c="green"  ,label="vrangafstand = 4000mm")
+def plot(klein,groot,titel):
+    figure = plt.figure(figsize=(10,8))
+    plt.plot(ss,klein(2), c="orange"    ,label="kleine platen, vrangafstand = 2m")
+    plt.plot(ss,klein(3), c="blue"      ,label="\" vrangafstand = 3m")
+    plt.plot(ss,klein(4), c="green"     ,label="\" vrangafstand = 4m")
+    plt.plot(ss,groot(2), c="red"       ,label="grote platen, vrangafstand = 2m")
+    plt.plot(ss,groot(3), c="yellow"    ,label="\" vrangafstand = 3m")
+    plt.plot(ss,groot(4), c="black"     ,label="\" vrangafstand = 4m")
     plt.xlabel("stiffner spacing [m]")
     plt.ylabel("kosten [euro]")
     titeltje= "Functie van stiffnerspacing, voor "+titel
     plt.title(titeltje)
-    plt.legend(loc = "upper right", shadow = True, fontsize="medium")
+    plt.legend(loc = "best", shadow = True, fontsize="small")
     figure.savefig("./plaatproductie/"+titel+".png")
     #figure.colorbar(surf,shrink=0.5,aspect=5)
     #ax.legend(loc = "lower right", shadow = True, fontsize="large")
@@ -644,30 +647,17 @@ def plot_test(self,titel):
     plt.show()
 
 
-plot(totaal.groot_robot_5,"totale kosten robot, groot, 5 stations")
-plot(totaal.groot_robot_4,"totale kosten robot, groot, 4 stations")
-plot(totaal.klein_robot_5,"totale kosten robot, klein, 5 stations")
-plot(totaal.klein_robot_4,"totale kosten robot, klein, 4 stations")
-plot(totaal.klein_hand,"totale kosten hand, klein")
-plot(totaal.groot_hand,"totale kosten hand, groot")
+plot(totaal.klein_robot_5, totaal.groot_robot_5,"totale kosten robot")
+plot(totaal.klein_hand, totaal.groot_hand,"totale kosten hand")
 
-plot(materiaal.groot_robot_5,"materiaal kosten robot, groot, 5 stations")
-plot(materiaal.groot_robot_4,"materiaal kosten robot, groot, 4 stations")
-plot(materiaal.klein_robot_5,"materiaal kosten robot, klein, 5 stations")
-plot(materiaal.klein_robot_4,"materiaal kosten robot, klein, 4 stations")
-plot(materiaal.klein_hand,"materiaal kosten hand, klein")
-plot(materiaal.groot_hand,"materiaal kosten hand, groot")
 
-plot(vastekosten.groot_robot_5,"vastekoste  robot, groot, 5 stations")
-plot(vastekosten.groot_robot_4,"vastekosten robot, groot, 4 stations")
-plot(vastekosten.klein_robot_5,"vastekosten robot, klein, 5 stations")
-plot(vastekosten.klein_robot_4,"vastekosten robot, klein, 4 stations")
-plot(vastekosten.klein_hand,"vastekosten hand, klein")
-plot(vastekosten.groot_hand,"vastekosten hand, groot")
+plot(materiaal.klein_robot_5, materiaal.groot_robot_5,"materiaal kosten robot")
+plot(materiaal.klein_hand, materiaal.groot_hand,"materiaal kosten hand")
 
-plot(personeel.groot_robot_5,"personeels kosten robot, groot, 5 stations")
-plot(personeel.groot_robot_4,"personeels kosten robot, groot, 4 stations")
-plot(personeel.klein_robot_5,"personeels kosten robot, klein, 5 stations")
-plot(personeel.klein_robot_4,"personeels kosten robot, klein, 4 stations")
-plot(personeel.klein_hand,"personeels kosten hand, klein")
-plot(personeel.groot_hand,"personeels kosten hand, groot")
+
+plot(vastekosten.klein_robot_5, vastekosten.groot_robot_5,"vastekosten robot")
+plot(vastekosten.klein_hand, vastekosten.groot_hand,"vastekosten hand")
+
+
+plot(personeel.klein_robot_5, personeel.groot_robot_5,"personeels kosten robot")
+plot(personeel.klein_hand, personeel.groot_hand,"personeels kosten hand")
