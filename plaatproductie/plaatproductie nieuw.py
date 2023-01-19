@@ -651,9 +651,7 @@ plot(totaal.klein_robot_5, totaal.groot_robot_5,"totale kosten robot")
 plot(totaal.klein_hand, totaal.groot_hand,"totale kosten hand")
 
 
-plot(materiaal.klein_robot_5, materiaal.groot_robot_5,"materiaal kosten robot")
-plot(materiaal.klein_hand, materiaal.groot_hand,"materiaal kosten hand")
-
+plot(materiaal.klein_robot_5, materiaal.groot_robot_5,"materiaal kosten ")
 
 plot(vastekosten.klein_robot_5, vastekosten.groot_robot_5,"vastekosten robot")
 plot(vastekosten.klein_hand, vastekosten.groot_hand,"vastekosten hand")
