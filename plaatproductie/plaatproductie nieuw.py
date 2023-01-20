@@ -35,9 +35,9 @@ class totaal():
         Llas_vrang_verti = hvrang*nkruising*4 +nspant*hspant*2
         Llas = Llas_plaat + Llas_spant + Llas_vrang_hori + Llas_zaathout + Llas_vrang_verti
 
-        materiaal = 35521200*tp + 3415500/sg + 3552120*A_bulb/ss - 7488000*A_bulb + 1138500+3900*tp*Llas
+        materiaal = 35521200*tp + 3415500/sg + 355212000*A_bulb/ss - 118404000*A_bulb + 1138500+3900*tp*Llas
 
-        personeel = aantal_jaar*(150+37.5/ss+600/sg)
+        personeel = aantal_jaar*(2940+37.5/ss+600/sg)
 
         vastekosten = 3643200/30
 
@@ -59,16 +59,16 @@ class totaal():
         Llas_vrang_verti = hvrang*nkruising*4 +nspant*hspant*2
         Llas = Llas_plaat + Llas_spant + Llas_vrang_hori + Llas_zaathout + Llas_vrang_verti
 
-        materiaal = 35521200*tp + 3415500/sg + 3552120*2*A_bulb/sg - 7488000*A_bulb + 1138500+3900*tp*Llas
+        materiaal = 35521200*tp + 3415500/sg + 355212000*A_bulb/ss - 118404000*A_bulb + 1138500+3900*tp*Llas
 
-        personeel = aantal_jaar*(150+15/ss+600/sg)
+        personeel = aantal_jaar*(2875+15/ss+600/sg)
 
         vastekosten = 3643200/30
 
         totaal = materiaal + personeel + vastekosten 
         return totaal
 
-    def klein_robot_5(sg):
+    def klein_robot(sg):
         nzaathout = 4
         aantal_jaar = capaciteit/A 
         nplaat = Bp/bp
@@ -83,16 +83,16 @@ class totaal():
         Llas_vrang_verti = hvrang*nkruising*4 +nspant*hspant*2
         Llas = Llas_plaat + Llas_spant + Llas_vrang_hori + Llas_zaathout + Llas_vrang_verti
 
-        materiaal = 35521200*tp + 3415500/sg + 3552120*A_bulb/sg - 7488000*A_bulb + 1138500+3900*tp*Llas
+        materiaal = 35521200*tp + 3415500/sg + 355212000*A_bulb/ss - 118404000*A_bulb + 1138500+3900*tp*Llas
 
-        personeel = aantal_jaar*(45+81/ss+2160/sg)
+        personeel = aantal_jaar*(3852+81/ss+2160/sg)
 
         vastekosten = 1375000*((0.5+0.9/ss+24/sg*317)/8760)+3187800/30
 
         totaal = materiaal + personeel + vastekosten 
         return totaal
 
-    def groot_robot_4(sg):
+    def groot_robot(sg):
         nzaathout = 8
         aantal_jaar = capaciteit/(2*A) 
         nplaat = 2*Bp/bp
@@ -107,59 +107,11 @@ class totaal():
         Llas_vrang_verti = hvrang*nkruising*4 +nspant*hspant*2
         Llas = Llas_plaat + Llas_spant + Llas_vrang_hori + Llas_zaathout + Llas_vrang_verti
 
-        materiaal = 35521200*tp + 3415500/sg + 3552120*2*A_bulb/sg - 7488000*A_bulb + 1138500+3900*tp*Llas
+        materiaal = 35521200*tp + 3415500/sg + 355212000*A_bulb/ss - 118404000*A_bulb + 1138500+3900*tp*Llas
 
-        personeel = aantal_jaar*(45+81/ss+4320/sg)
+        personeel = aantal_jaar*(7497+81/ss+4320/sg)
 
         vastekosten = 1200000*((0.5+0.9/ss+24/sg*159)/8760)+3187800/30
-
-        totaal = materiaal + personeel + vastekosten 
-        return totaal
-
-    def klein_robot_4(sg):
-        nzaathout = 4
-        aantal_jaar = capaciteit/A 
-        nplaat = Bp/bp
-        nlas = nplaat -1
-        nspant = Bp/ss-nzaathout -1  
-        nvrang = Lp/sg
-        nkruising = nvrang*(nspant+nzaathout) 
-        Llas_plaat = nlas*Lp 
-        Llas_spant = nspant*Lp*2  
-        Llas_vrang_hori = nvrang*Bp*2  
-        Llas_zaathout = nzaathout*Lp*2   
-        Llas_vrang_verti = hvrang*nkruising*4 +nspant*hspant*2
-        Llas = Llas_plaat + Llas_spant + Llas_vrang_hori + Llas_zaathout + Llas_vrang_verti
-
-        materiaal = 35521200*tp + 3415500/sg + 3552120*A_bulb/sg - 7488000*A_bulb + 1138500+3900*tp*Llas
-
-        personeel = aantal_jaar*(45+81/ss+2160/sg)
-
-        vastekosten = 1100000*((0.5+0.9/ss+24/sg*317)/8760)+3187800/30
-
-        totaal = materiaal + personeel + vastekosten 
-        return totaal
-
-    def groot_robot_5(sg):
-        nzaathout = 8
-        aantal_jaar = capaciteit/(2*A)
-        nplaat = Bp/bp
-        nlas = nplaat -1
-        nspant = Bp/ss-nzaathout -1  
-        nvrang = 2*Lp/sg
-        nkruising = nvrang*(nspant+nzaathout) 
-        Llas_plaat = nlas*2*Lp 
-        Llas_spant = nspant*2*Lp*2  
-        Llas_vrang_hori = nvrang*Bp*2  
-        Llas_zaathout = nzaathout*2*Lp*2   
-        Llas_vrang_verti = hvrang*nkruising*4 +nspant*hspant*2
-        Llas = Llas_plaat + Llas_spant + Llas_vrang_hori + Llas_zaathout + Llas_vrang_verti
-
-        materiaal = 35521200*tp + 3415500/sg + 3552120*2*A_bulb/sg - 7488000*A_bulb + 1138500+3900*tp*Llas
-
-        personeel = aantal_jaar*(45+81/ss+4320/sg)
-
-        vastekosten = 1500000*((0.5+0.9/ss+24/sg*159)/8760)+3187800/30
 
         totaal = materiaal + personeel + vastekosten 
         return totaal
@@ -182,9 +134,9 @@ class materiaal():
         Llas_vrang_verti = hvrang*nkruising*4 +nspant*hspant*2
         Llas = Llas_plaat + Llas_spant + Llas_vrang_hori + Llas_zaathout + Llas_vrang_verti
 
-        materiaal = 35521200*tp + 3415500/sg + 3552120*A_bulb/ss - 7488000*A_bulb + 1138500+3900*tp*Llas
+        materiaal = 35521200*tp + 3415500/sg + 355212000*A_bulb/ss - 118404000*A_bulb + 1138500+3900*tp*Llas
 
-        personeel = aantal_jaar*(150+37.5/ss+600/sg)
+        personeel = aantal_jaar*(2940+37.5/ss+600/sg)
 
         vastekosten = 3643200/30
 
@@ -206,16 +158,16 @@ class materiaal():
         Llas_vrang_verti = hvrang*nkruising*4 +nspant*hspant*2
         Llas = Llas_plaat + Llas_spant + Llas_vrang_hori + Llas_zaathout + Llas_vrang_verti
 
-        materiaal = 35521200*tp + 3415500/sg + 3552120*2*A_bulb/sg - 7488000*A_bulb + 1138500+3900*tp*Llas
+        materiaal = 35521200*tp + 3415500/sg + 355212000*A_bulb/ss - 118404000*A_bulb + 1138500+3900*tp*Llas
 
-        personeel = aantal_jaar*(150+15/ss+600/sg)
+        personeel = aantal_jaar*(2875+15/ss+600/sg)
 
         vastekosten = 3643200/30
 
-        totaal = materiaal 
+        totaal = materiaal
         return totaal
 
-    def klein_robot_5(sg):
+    def klein_robot(sg):
         nzaathout = 4
         aantal_jaar = capaciteit/A 
         nplaat = Bp/bp
@@ -230,16 +182,16 @@ class materiaal():
         Llas_vrang_verti = hvrang*nkruising*4 +nspant*hspant*2
         Llas = Llas_plaat + Llas_spant + Llas_vrang_hori + Llas_zaathout + Llas_vrang_verti
 
-        materiaal = 35521200*tp + 3415500/sg + 3552120*A_bulb/sg - 7488000*A_bulb + 1138500+3900*tp*Llas
+        materiaal = 35521200*tp + 3415500/sg + 355212000*A_bulb/ss - 118404000*A_bulb + 1138500+3900*tp*Llas
 
-        personeel = aantal_jaar*(45+81/ss+2160/sg)
+        personeel = aantal_jaar*(3852+81/ss+2160/sg)
 
         vastekosten = 1375000*((0.5+0.9/ss+24/sg*317)/8760)+3187800/30
 
         totaal = materiaal
         return totaal
 
-    def groot_robot_4(sg):
+    def groot_robot(sg):
         nzaathout = 8
         aantal_jaar = capaciteit/(2*A) 
         nplaat = 2*Bp/bp
@@ -254,208 +206,13 @@ class materiaal():
         Llas_vrang_verti = hvrang*nkruising*4 +nspant*hspant*2
         Llas = Llas_plaat + Llas_spant + Llas_vrang_hori + Llas_zaathout + Llas_vrang_verti
 
-        materiaal = 35521200*tp + 3415500/sg + 3552120*2*A_bulb/sg - 7488000*A_bulb + 1138500+3900*tp*Llas
+        materiaal = 35521200*tp + 3415500/sg + 355212000*A_bulb/ss - 118404000*A_bulb + 1138500+3900*tp*Llas
 
-        personeel = aantal_jaar*(45+81/ss+4320/sg)
+        personeel = aantal_jaar*(7497+81/ss+4320/sg)
 
         vastekosten = 1200000*((0.5+0.9/ss+24/sg*159)/8760)+3187800/30
 
-        totaal = materiaal 
-        return totaal
-
-    def klein_robot_4(sg):
-        nzaathout = 4
-        aantal_jaar = capaciteit/A 
-        nplaat = Bp/bp
-        nlas = nplaat -1
-        nspant = Bp/ss-nzaathout -1  
-        nvrang = Lp/sg
-        nkruising = nvrang*(nspant+nzaathout) 
-        Llas_plaat = nlas*Lp 
-        Llas_spant = nspant*Lp*2  
-        Llas_vrang_hori = nvrang*Bp*2  
-        Llas_zaathout = nzaathout*Lp*2   
-        Llas_vrang_verti = hvrang*nkruising*4 +nspant*hspant*2
-        Llas = Llas_plaat + Llas_spant + Llas_vrang_hori + Llas_zaathout + Llas_vrang_verti
-
-        materiaal = 35521200*tp + 3415500/sg + 3552120*A_bulb/sg - 7488000*A_bulb + 1138500+3900*tp*Llas
-
-        personeel = aantal_jaar*(45+81/ss+2160/sg)
-
-        vastekosten = 1100000*((0.5+0.9/ss+24/sg*317)/8760)+3187800/30
-
         totaal = materiaal
-        return totaal
-
-    def groot_robot_5(sg):
-        nzaathout = 8
-        aantal_jaar = capaciteit/(2*A)
-        nplaat = Bp/bp
-        nlas = nplaat -1
-        nspant = Bp/ss-nzaathout -1  
-        nvrang = 2*Lp/sg
-        nkruising = nvrang*(nspant+nzaathout) 
-        Llas_plaat = nlas*2*Lp 
-        Llas_spant = nspant*2*Lp*2  
-        Llas_vrang_hori = nvrang*Bp*2  
-        Llas_zaathout = nzaathout*2*Lp*2   
-        Llas_vrang_verti = hvrang*nkruising*4 +nspant*hspant*2
-        Llas = Llas_plaat + Llas_spant + Llas_vrang_hori + Llas_zaathout + Llas_vrang_verti
-
-        materiaal = 35521200*tp + 3415500/sg + 3552120*2*A_bulb/sg - 7488000*A_bulb + 1138500+3900*tp*Llas
-
-        personeel = aantal_jaar*(45+81/ss+4320/sg)
-
-        vastekosten = 1500000*((0.5+0.9/ss+24/sg*159)/8760)+3187800/30
-
-        totaal = materiaal
-        return totaal
-
-class personeel():
-
-    def klein_hand(sg):
-        nzaathout = 4
-        aantal_jaar = capaciteit/A 
-        nplaat = Bp/bp
-        nlas = nplaat -1
-        nspant = Bp/ss-nzaathout -1  
-        nvrang = Lp/sg
-        nkruising = nvrang*(nspant+nzaathout)
-        Llas_plaat = nlas*Lp     
-        Llas_plaat = nlas*Lp 
-        Llas_spant = nspant*Lp*2  
-        Llas_vrang_hori = nvrang*Bp*2  
-        Llas_zaathout = nzaathout*Lp*2   
-        Llas_vrang_verti = hvrang*nkruising*4 +nspant*hspant*2
-        Llas = Llas_plaat + Llas_spant + Llas_vrang_hori + Llas_zaathout + Llas_vrang_verti
-
-        materiaal = 35521200*tp + 3415500/sg + 3552120*A_bulb/ss - 7488000*A_bulb + 1138500+3900*tp*Llas
-
-        personeel = aantal_jaar*(150+37.5/ss+600/sg)
-
-        vastekosten = 3643200/30
-
-        totaal = personeel
-        return totaal
-
-    def groot_hand(sg):
-        nzaathout = 8
-        aantal_jaar = capaciteit/(2*A) 
-        nplaat = 2*Bp/bp
-        nlas = nplaat -1
-        nspant = 2*Bp/ss-nzaathout -1  
-        nvrang = Lp/sg
-        nkruising = nvrang*(nspant+nzaathout) 
-        Llas_plaat = nlas*Lp 
-        Llas_spant = nspant*Lp*2  
-        Llas_vrang_hori = nvrang*2*Bp*2  
-        Llas_zaathout = nzaathout*Lp*2   
-        Llas_vrang_verti = hvrang*nkruising*4 +nspant*hspant*2
-        Llas = Llas_plaat + Llas_spant + Llas_vrang_hori + Llas_zaathout + Llas_vrang_verti
-
-        materiaal = 35521200*tp + 3415500/sg + 3552120*2*A_bulb/sg - 7488000*A_bulb + 1138500+3900*tp*Llas
-
-        personeel = aantal_jaar*(150+15/ss+600/sg)
-
-        vastekosten = 3643200/30
-
-        totaal = personeel 
-        return totaal
-
-    def klein_robot_5(sg):
-        nzaathout = 4
-        aantal_jaar = capaciteit/A 
-        nplaat = Bp/bp
-        nlas = nplaat -1
-        nspant = Bp/ss-nzaathout -1  
-        nvrang = Lp/sg
-        nkruising = nvrang*(nspant+nzaathout) 
-        Llas_plaat = nlas*Lp 
-        Llas_spant = nspant*Lp*2  
-        Llas_vrang_hori = nvrang*Bp*2  
-        Llas_zaathout = nzaathout*Lp*2   
-        Llas_vrang_verti = hvrang*nkruising*4 +nspant*hspant*2
-        Llas = Llas_plaat + Llas_spant + Llas_vrang_hori + Llas_zaathout + Llas_vrang_verti
-
-        materiaal = 35521200*tp + 3415500/sg + 3552120*A_bulb/sg - 7488000*A_bulb + 1138500+3900*tp*Llas
-
-        personeel = aantal_jaar*(45+81/ss+2160/sg)
-
-        vastekosten = 1375000*((0.5+0.9/ss+24/sg*317)/8760)+3187800/30
-
-        totaal = personeel
-        return totaal
-
-    def groot_robot_4(sg):
-        nzaathout = 8
-        aantal_jaar = capaciteit/(2*A) 
-        nplaat = 2*Bp/bp
-        nlas = nplaat -1
-        nspant = 2*Bp/ss-nzaathout -1  
-        nvrang = Lp/sg
-        nkruising = nvrang*(nspant+nzaathout) 
-        Llas_plaat = nlas*Lp 
-        Llas_spant = nspant*Lp*2  
-        Llas_vrang_hori = nvrang*2*Bp*2  
-        Llas_zaathout = nzaathout*Lp*2   
-        Llas_vrang_verti = hvrang*nkruising*4 +nspant*hspant*2
-        Llas = Llas_plaat + Llas_spant + Llas_vrang_hori + Llas_zaathout + Llas_vrang_verti
-
-        materiaal = 35521200*tp + 3415500/sg + 3552120*2*A_bulb/sg - 7488000*A_bulb + 1138500+3900*tp*Llas
-
-        personeel = aantal_jaar*(45+81/ss+4320/sg)
-
-        vastekosten = 1200000*((0.5+0.9/ss+24/sg*159)/8760)+3187800/30
-
-        totaal = personeel 
-        return totaal
-
-    def klein_robot_4(sg):
-        nzaathout = 4
-        aantal_jaar = capaciteit/A 
-        nplaat = Bp/bp
-        nlas = nplaat -1
-        nspant = Bp/ss-nzaathout -1  
-        nvrang = Lp/sg
-        nkruising = nvrang*(nspant+nzaathout) 
-        Llas_plaat = nlas*Lp 
-        Llas_spant = nspant*Lp*2  
-        Llas_vrang_hori = nvrang*Bp*2  
-        Llas_zaathout = nzaathout*Lp*2   
-        Llas_vrang_verti = hvrang*nkruising*4 +nspant*hspant*2
-        Llas = Llas_plaat + Llas_spant + Llas_vrang_hori + Llas_zaathout + Llas_vrang_verti
-
-        materiaal = 35521200*tp + 3415500/sg + 3552120*A_bulb/sg - 7488000*A_bulb + 1138500+3900*tp*Llas
-
-        personeel = aantal_jaar*(45+81/ss+2160/sg)
-
-        vastekosten = 1100000*((0.5+0.9/ss+24/sg*317)/8760)+3187800/30
-
-        totaal = personeel
-        return totaal
-
-    def groot_robot_5(sg):
-        nzaathout = 8
-        aantal_jaar = capaciteit/(2*A)
-        nplaat = Bp/bp
-        nlas = nplaat -1
-        nspant = Bp/ss-nzaathout -1  
-        nvrang = 2*Lp/sg
-        nkruising = nvrang*(nspant+nzaathout) 
-        Llas_plaat = nlas*2*Lp 
-        Llas_spant = nspant*2*Lp*2  
-        Llas_vrang_hori = nvrang*Bp*2  
-        Llas_zaathout = nzaathout*2*Lp*2   
-        Llas_vrang_verti = hvrang*nkruising*4 +nspant*hspant*2
-        Llas = Llas_plaat + Llas_spant + Llas_vrang_hori + Llas_zaathout + Llas_vrang_verti
-
-        materiaal = 35521200*tp + 3415500/sg + 3552120*2*A_bulb/sg - 7488000*A_bulb + 1138500+3900*tp*Llas
-
-        personeel = aantal_jaar*(45+81/ss+4320/sg)
-
-        vastekosten = 1500000*((0.5+0.9/ss+24/sg*159)/8760)+3187800/30
-
-        totaal = personeel
         return totaal
 
 class vastekosten():
@@ -476,13 +233,13 @@ class vastekosten():
         Llas_vrang_verti = hvrang*nkruising*4 +nspant*hspant*2
         Llas = Llas_plaat + Llas_spant + Llas_vrang_hori + Llas_zaathout + Llas_vrang_verti
 
-        materiaal = 35521200*tp + 3415500/sg + 3552120*A_bulb/ss - 7488000*A_bulb + 1138500+3900*tp*Llas
+        materiaal = 35521200*tp + 3415500/sg + 355212000*A_bulb/ss - 118404000*A_bulb + 1138500+3900*tp*Llas
 
-        personeel = aantal_jaar*(150+37.5/ss+600/sg)
+        personeel = aantal_jaar*(2940+37.5/ss+600/sg)
 
-        vastekosten = 3643200/30
+        vastekosten = 3643200/30 *ss/ss
 
-        totaal = vastekosten*ss/ss
+        totaal = vastekosten
         return totaal
 
     def groot_hand(sg):
@@ -500,16 +257,16 @@ class vastekosten():
         Llas_vrang_verti = hvrang*nkruising*4 +nspant*hspant*2
         Llas = Llas_plaat + Llas_spant + Llas_vrang_hori + Llas_zaathout + Llas_vrang_verti
 
-        materiaal = 35521200*tp + 3415500/sg + 3552120*2*A_bulb/sg - 7488000*A_bulb + 1138500+3900*tp*Llas
+        materiaal = 35521200*tp + 3415500/sg + 355212000*A_bulb/ss - 118404000*A_bulb + 1138500+3900*tp*Llas
 
-        personeel = aantal_jaar*(150+15/ss+600/sg)
+        personeel = aantal_jaar*(2875+15/ss+600/sg)
 
-        vastekosten = 3643200/30
+        vastekosten = 3643200/30 *ss/ss
 
-        totaal = vastekosten*ss/ss
+        totaal = vastekosten
         return totaal
 
-    def klein_robot_5(sg):
+    def klein_robot(sg):
         nzaathout = 4
         aantal_jaar = capaciteit/A 
         nplaat = Bp/bp
@@ -524,16 +281,16 @@ class vastekosten():
         Llas_vrang_verti = hvrang*nkruising*4 +nspant*hspant*2
         Llas = Llas_plaat + Llas_spant + Llas_vrang_hori + Llas_zaathout + Llas_vrang_verti
 
-        materiaal = 35521200*tp + 3415500/sg + 3552120*A_bulb/sg - 7488000*A_bulb + 1138500+3900*tp*Llas
+        materiaal = 35521200*tp + 3415500/sg + 355212000*A_bulb/ss - 118404000*A_bulb + 1138500+3900*tp*Llas
 
-        personeel = aantal_jaar*(45+81/ss+2160/sg)
+        personeel = aantal_jaar*(3852+81/ss+2160/sg)
 
         vastekosten = 1375000*((0.5+0.9/ss+24/sg*317)/8760)+3187800/30
 
-        totaal = vastekosten*ss/ss
+        totaal = vastekosten
         return totaal
 
-    def groot_robot_4(sg):
+    def groot_robot(sg):
         nzaathout = 8
         aantal_jaar = capaciteit/(2*A) 
         nplaat = 2*Bp/bp
@@ -548,16 +305,67 @@ class vastekosten():
         Llas_vrang_verti = hvrang*nkruising*4 +nspant*hspant*2
         Llas = Llas_plaat + Llas_spant + Llas_vrang_hori + Llas_zaathout + Llas_vrang_verti
 
-        materiaal = 35521200*tp + 3415500/sg + 3552120*2*A_bulb/sg - 7488000*A_bulb + 1138500+3900*tp*Llas
+        materiaal = 35521200*tp + 3415500/sg + 355212000*A_bulb/ss - 118404000*A_bulb + 1138500+3900*tp*Llas
 
-        personeel = aantal_jaar*(45+81/ss+4320/sg)
+        personeel = aantal_jaar*(7497+81/ss+4320/sg)
 
         vastekosten = 1200000*((0.5+0.9/ss+24/sg*159)/8760)+3187800/30
 
-        totaal = vastekosten *ss/ss
+        totaal = vastekosten
         return totaal
 
-    def klein_robot_4(sg):
+class personeel():
+
+    def klein_hand(sg):
+        nzaathout = 4
+        aantal_jaar = capaciteit/A 
+        nplaat = Bp/bp
+        nlas = nplaat -1
+        nspant = Bp/ss-nzaathout -1  
+        nvrang = Lp/sg
+        nkruising = nvrang*(nspant+nzaathout)
+        Llas_plaat = nlas*Lp     
+        Llas_plaat = nlas*Lp 
+        Llas_spant = nspant*Lp*2  
+        Llas_vrang_hori = nvrang*Bp*2  
+        Llas_zaathout = nzaathout*Lp*2   
+        Llas_vrang_verti = hvrang*nkruising*4 +nspant*hspant*2
+        Llas = Llas_plaat + Llas_spant + Llas_vrang_hori + Llas_zaathout + Llas_vrang_verti
+
+        materiaal = 35521200*tp + 3415500/sg + 355212000*A_bulb/ss - 118404000*A_bulb + 1138500+3900*tp*Llas
+
+        personeel = aantal_jaar*(2940+37.5/ss+600/sg)
+
+        vastekosten = 3643200/30
+
+        totaal = personeel
+        return totaal
+
+    def groot_hand(sg):
+        nzaathout = 8
+        aantal_jaar = capaciteit/(2*A) 
+        nplaat = 2*Bp/bp
+        nlas = nplaat -1
+        nspant = 2*Bp/ss-nzaathout -1  
+        nvrang = Lp/sg
+        nkruising = nvrang*(nspant+nzaathout) 
+        Llas_plaat = nlas*Lp 
+        Llas_spant = nspant*Lp*2  
+        Llas_vrang_hori = nvrang*2*Bp*2  
+        Llas_zaathout = nzaathout*Lp*2   
+        Llas_vrang_verti = hvrang*nkruising*4 +nspant*hspant*2
+        Llas = Llas_plaat + Llas_spant + Llas_vrang_hori + Llas_zaathout + Llas_vrang_verti
+
+        materiaal = 35521200*tp + 3415500/sg + 355212000*A_bulb/ss - 118404000*A_bulb + 1138500+3900*tp*Llas
+
+        personeel = aantal_jaar*(2875+15/ss+600/sg)
+
+        vastekosten = 3643200/30
+
+        totaal = personeel
+        return totaal
+
+    def klein_robot(sg):
         nzaathout = 4
         aantal_jaar = capaciteit/A 
         nplaat = Bp/bp
@@ -572,37 +380,37 @@ class vastekosten():
         Llas_vrang_verti = hvrang*nkruising*4 +nspant*hspant*2
         Llas = Llas_plaat + Llas_spant + Llas_vrang_hori + Llas_zaathout + Llas_vrang_verti
 
-        materiaal = 35521200*tp + 3415500/sg + 3552120*A_bulb/sg - 7488000*A_bulb + 1138500+3900*tp*Llas
+        materiaal = 35521200*tp + 3415500/sg + 355212000*A_bulb/ss - 118404000*A_bulb + 1138500+3900*tp*Llas
 
-        personeel = aantal_jaar*(45+81/ss+2160/sg)
+        personeel = aantal_jaar*(3852+81/ss+2160/sg)
 
-        vastekosten = 1100000*((0.5+0.9/ss+24/sg*317)/8760)+3187800/30
+        vastekosten = 1375000*((0.5+0.9/ss+24/sg*317)/8760)+3187800/30
 
-        totaal = vastekosten*ss/ss
+        totaal = personeel
         return totaal
 
-    def groot_robot_5(sg):
+    def groot_robot(sg):
         nzaathout = 8
-        aantal_jaar = capaciteit/(2*A)
-        nplaat = Bp/bp
+        aantal_jaar = capaciteit/(2*A) 
+        nplaat = 2*Bp/bp
         nlas = nplaat -1
-        nspant = Bp/ss-nzaathout -1  
-        nvrang = 2*Lp/sg
+        nspant = 2*Bp/ss-nzaathout -1  
+        nvrang = Lp/sg
         nkruising = nvrang*(nspant+nzaathout) 
-        Llas_plaat = nlas*2*Lp 
-        Llas_spant = nspant*2*Lp*2  
-        Llas_vrang_hori = nvrang*Bp*2  
-        Llas_zaathout = nzaathout*2*Lp*2   
+        Llas_plaat = nlas*Lp 
+        Llas_spant = nspant*Lp*2  
+        Llas_vrang_hori = nvrang*2*Bp*2  
+        Llas_zaathout = nzaathout*Lp*2   
         Llas_vrang_verti = hvrang*nkruising*4 +nspant*hspant*2
         Llas = Llas_plaat + Llas_spant + Llas_vrang_hori + Llas_zaathout + Llas_vrang_verti
 
-        materiaal = 35521200*tp + 3415500/sg + 3552120*2*A_bulb/sg - 7488000*A_bulb + 1138500+3900*tp*Llas
+        materiaal = 35521200*tp + 3415500/sg + 355212000*A_bulb/ss - 118404000*A_bulb + 1138500+3900*tp*Llas
 
-        personeel = aantal_jaar*(45+81/ss+4320/sg)
+        personeel = aantal_jaar*(7497+81/ss+4320/sg)
 
-        vastekosten = 1500000*((0.5+0.9/ss+24/sg*159)/8760)+3187800/30
+        vastekosten = 1200000*((0.5+0.9/ss+24/sg*159)/8760)+3187800/30
 
-        totaal = vastekosten*ss/ss
+        totaal = personeel
         return totaal
 
 
@@ -620,9 +428,6 @@ def plot(klein,groot,titel):
     plt.title(titeltje)
     plt.legend(loc = "best", shadow = True, fontsize="small")
     figure.savefig("./plaatproductie/"+titel+".png")
-    #figure.colorbar(surf,shrink=0.5,aspect=5)
-    #ax.legend(loc = "lower right", shadow = True, fontsize="large")
-
 
 def plot_test(self,titel):
     fig, ax = plt.subplots(figsize=(16,9))
@@ -670,9 +475,9 @@ def plot_test(self,titel):
     plt.show()
 
 def bar_plot():
-    materiaal_tup = (min(materiaal.klein_hand(4)),min(materiaal.groot_hand(4)),min(materiaal.klein_robot_5(4)),min(materiaal.groot_robot_5(4)))
-    personeel_tup = (min(personeel.klein_hand(4)),min(personeel.groot_hand(4)),min(personeel.klein_robot_5(4)),min(personeel.groot_robot_5(4)))
-    vastekosten_tup = (min(vastekosten.klein_hand(4)),min(vastekosten.groot_hand(4)),min(vastekosten.klein_robot_5(4)),min(vastekosten.groot_robot_5(4)))
+    materiaal_tup = (min(materiaal.klein_hand(4)),min(materiaal.groot_hand(4)),min(materiaal.klein_robot(4)),min(materiaal.groot_robot(4)))
+    personeel_tup = (min(personeel.klein_hand(4)),min(personeel.groot_hand(4)),min(personeel.klein_robot(4)),min(personeel.groot_robot(4)))
+    vastekosten_tup = (min(vastekosten.klein_hand(4)),min(vastekosten.groot_hand(4)),min(vastekosten.klein_robot(4)),min(vastekosten.groot_robot(4)))
     figure = plt.figure(figsize=(10,8))
     ind = np.arange(4)
     plt.bar(ind, np.array(materiaal_tup), 0.35,    color="red", label="materiaal")
@@ -685,17 +490,17 @@ def bar_plot():
     plt.legend(loc = "best", shadow = True, fontsize="small")
     figure.savefig("./plaatproductie/barplot.png")
 
-plot(totaal.klein_robot_5, totaal.groot_robot_5,"totale kosten robot")
+plot(totaal.klein_robot, totaal.groot_robot,"totale kosten robot")
 plot(totaal.klein_hand, totaal.groot_hand,"totale kosten hand")
 
 
-plot(materiaal.klein_robot_5, materiaal.groot_robot_5,"materiaal kosten ")
+plot(materiaal.klein_robot, materiaal.groot_robot,"materiaal kosten ")
 
-plot(vastekosten.klein_robot_5, vastekosten.groot_robot_5,"vastekosten robot")
+plot(vastekosten.klein_robot, vastekosten.groot_robot,"vastekosten robot")
 plot(vastekosten.klein_hand, vastekosten.groot_hand,"vastekosten hand")
 
 
-plot(personeel.klein_robot_5, personeel.groot_robot_5,"personeels kosten robot")
+plot(personeel.klein_robot, personeel.groot_robot,"personeels kosten robot")
 plot(personeel.klein_hand, personeel.groot_hand,"personeels kosten hand")
 
 bar_plot()
