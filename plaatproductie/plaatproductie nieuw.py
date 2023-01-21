@@ -63,7 +63,7 @@ class totaal():
 
         personeel = aantal_jaar*(3295+25*nspant+200*nvrang)
 
-        vastekosten = 151773.33
+        vastekosten = 2*151773.33
 
         totaal = materiaal + personeel + vastekosten 
         return totaal
@@ -85,7 +85,7 @@ class totaal():
 
         materiaal = 35521200*tp + 3415500/sg + 355212000*A_bulb/ss-118404000*A_bulb+1138500+3900*tp*Llas
 
-        personeel = aantal_jaar*(3933+27*nspant+180*nvrang)
+        personeel = aantal_jaar*(3933+27*nspant+180*nvrang)*(3/5)
 
         vastekosten = 106260+229166.67*((43.7+0.3*nspant+2*nvrang)*137/8400)
 
@@ -109,7 +109,7 @@ class totaal():
 
         materiaal = 35521200*tp + 3415500/sg + 355212000*A_bulb/ss-118404000*A_bulb+1138500+3900*tp*Llas
 
-        personeel = aantal_jaar*(7965+27*nspant+4320*260*nvrang)
+        personeel = aantal_jaar*(7965+27*nspant+260*nvrang)*(3/5)
 
         vastekosten = 106260+250000*((88.5+0.3*nspant+4*nvrang)*159/8400)
 
@@ -283,7 +283,7 @@ class personeel():
 
         materiaal = aantal_jaar*4*(Lp*Bp*7800*tp+Bp*75*Lp/sg+(Bp/ss-1)*Lp*A_bulb*7800+Lp*75)+0.5*7800*tp*Llas
 
-        personeel = aantal_jaar*(3933+27*nspant+180*nvrang)
+        personeel = aantal_jaar*(3933+27*nspant+180*nvrang)*(3/5)
 
         vastekosten = 106260+229166.67*((43.7+0.3*nspant+2*nvrang)*137/8400)
 
@@ -307,7 +307,7 @@ class personeel():
 
         materiaal = aantal_jaar*8*(Lp*Bp*7800*tp+Bp*75*Lp/sg+(Bp/ss-1)*Lp*A_bulb*7800+Lp*75)+0.5*7800*tp*Llas
 
-        personeel = aantal_jaar*(7965+27*nspant+360*nvrang)
+        personeel = aantal_jaar*(7965+27*nspant+360*nvrang)*(3/5)
 
         vastekosten = 106260+250000*((88.5+0.3*nspant+4*nvrang)*159/8400)
 
@@ -360,7 +360,7 @@ class vastekosten():
 
         personeel = aantal_jaar*(3295+25*nspant+200*nvrang)
 
-        vastekosten = 151773.33 *ss/ss
+        vastekosten = 2*151773.33 *ss/ss
 
         totaal = materiaal + personeel + vastekosten 
         return vastekosten
@@ -412,6 +412,7 @@ class vastekosten():
 
         totaal = materiaal + personeel + vastekosten 
         return vastekosten
+
 
 
 def plot(klein,groot,titel):
