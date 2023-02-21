@@ -17,7 +17,7 @@ A= 144
 hvrang = 1.25
 hspant = 0.16
 capaciteit = 22500 + 4/3* 17280
-loods = 1200
+loods = 1730
 
 '''#hand
 personeel = 50/0.35(nplaat + 4 + Llas_plaat/15 +(Llas_vrang_verti/1.2 +(Llas_vrang_hori+Llas_zaathout)/2)*(7.8*tp**2/200) 1/2*(nspant)+2*(nvrang+nzaathout))
@@ -44,7 +44,7 @@ class totaal():
 
         materiaal = 35521200*tp + 3415500/sg + 355212000*A_bulb/ss-118404000*A_bulb+1138500+3900*tp*Llas
 
-        urenpplaat = 1/0.35*(nplaat + 4 + Llas_plaat/15 +(Llas_vrang_verti/1.2 +(Llas_vrang_hori+Llas_zaathout+Llas_spant)/2)*(7.8*tpmm**2/2000) +(nspant)+4*(nvrang+nzaathout))
+        urenpplaat = nplaat + 2 + 1/0.35*(Llas_plaat/15 +(Llas_vrang_verti/1.2 +(Llas_vrang_hori+Llas_zaathout+Llas_spant)/2)*(7.8*tpmm**2/2000) )+0.5*(nspant)+4*(nvrang+nzaathout)
         personeel = aantal_jaar*50* urenpplaat
 
         vastekosten = 90*loods
@@ -69,7 +69,7 @@ class totaal():
 
         materiaal = 35521200*tp + 3415500/sg + 355212000*A_bulb/ss-118404000*A_bulb+1138500+3900*tp*Llas
 
-        urenpplaat = 1/0.35*(nplaat + 4 + Llas_plaat/15 +(Llas_vrang_verti/1.2 +(Llas_vrang_hori+Llas_zaathout+Llas_spant)/2)*(7.8*tpmm**2/2000) +(nspant)+8*(nvrang+nzaathout))
+        urenpplaat = nplaat + 2 + 1/0.35*(Llas_plaat/15 +(Llas_vrang_verti/1.2 +(Llas_vrang_hori+Llas_zaathout+Llas_spant)/2)*(7.8*tpmm**2/2000) )+0.5*(nspant)+8*(nvrang+nzaathout)
 
         personeel = aantal_jaar*50*urenpplaat
 
@@ -95,10 +95,10 @@ class totaal():
 
         materiaal = 35521200*tp + 3415500/sg + 355212000*A_bulb/ss-118404000*A_bulb+1138500+3900*tp*Llas
 
-        urenpplaat = 1/0.6*(((Llas_zaathout/2+Llas_vrang_verti/1.2+Llas_vrang_hori/2)*7.8*tpmm**2)/4000)
+        urenpplaat = 1/0.6*(((Llas_zaathout/2+Llas_vrang_verti/1.2+Llas_vrang_hori/2)*7.8*tpmm**2)/4000) +2*(nvrang+nzaathout)
         personeel = aantal_jaar*90*3/5*urenpplaat
-
-        vastekosten = 70*loods +275000*5
+        loods = 1500
+        vastekosten = 70*loods +275000*10
         totaal = materiaal + personeel + vastekosten 
         return totaal
 
@@ -119,10 +119,10 @@ class totaal():
 
         materiaal = 35521200*tp + 3415500/sg + 355212000*A_bulb/ss-118404000*A_bulb+1138500+3900*tp*Llas
 
-        urenpplaat = 1/0.6*(((Llas_zaathout/2+Llas_vrang_verti/1.2+Llas_vrang_hori/2)*7.8*tpmm**2)/4000)
+        urenpplaat = 1/0.6*(((Llas_zaathout/2+Llas_vrang_verti/1.2+Llas_vrang_hori/2)*7.8*tpmm**2)/4000) +4*(nvrang+nzaathout)
         personeel = aantal_jaar*90*3/5*urenpplaat
-
-        vastekosten = 70*loods +300000*5
+        loods = 1500
+        vastekosten = 70*loods +300000*10
 
         totaal = materiaal + personeel + vastekosten 
         return totaal
@@ -246,7 +246,7 @@ class personeel():
 
         materiaal = aantal_jaar*4*(Lp*Bp*7800*tp+Bp*75*Lp/sg+(Bp/ss-1)*Lp*A_bulb*7800+Lp*75)+0.5*7800*tp*Llas
 
-        urenpplaat = 1/0.35*(nplaat + 4 + Llas_plaat/15 +(Llas_vrang_verti/1.2 +(Llas_vrang_hori+Llas_zaathout+Llas_spant)/2)*(7.8*tpmm**2/2000) +(nspant)+4*(nvrang+nzaathout))
+        urenpplaat = nplaat + 2 + 1/0.35*(Llas_plaat/15 +(Llas_vrang_verti/1.2 +(Llas_vrang_hori+Llas_zaathout+Llas_spant)/2)*(7.8*tpmm**2/2000) )+0.5*(nspant)+4*(nvrang+nzaathout)
         personeel = aantal_jaar*50* urenpplaat
 
         vastekosten = 151773.33
@@ -271,7 +271,7 @@ class personeel():
 
         materiaal = aantal_jaar*8*(Lp*Bp*7800*tp+Bp*75*Lp/sg+(Bp/ss-1)*Lp*A_bulb*7800+Lp*75)+0.5*7800*tp*Llas
 
-        urenpplaat = 1/0.35*(nplaat + 4 + Llas_plaat/15 +(Llas_vrang_verti/1.2 +(Llas_vrang_hori+Llas_zaathout+Llas_spant)/2)*(7.8*tpmm**2/2000) +(nspant)+8*(nvrang+nzaathout))
+        urenpplaat = nplaat + 2 + 1/0.35*(Llas_plaat/15 +(Llas_vrang_verti/1.2 +(Llas_vrang_hori+Llas_zaathout+Llas_spant)/2)*(7.8*tpmm**2/2000) )+0.5*(nspant)+8*(nvrang+nzaathout)
 
         personeel = aantal_jaar*50*urenpplaat
 
@@ -297,7 +297,7 @@ class personeel():
 
         materiaal = aantal_jaar*4*(Lp*Bp*7800*tp+Bp*75*Lp/sg+(Bp/ss-1)*Lp*A_bulb*7800+Lp*75)+0.5*7800*tp*Llas
 
-        urenpplaat = 1/0.6*(((Llas_zaathout/2+Llas_vrang_verti/1.2+Llas_vrang_hori/2)*7.8*tpmm**2)/4000)
+        urenpplaat = 1/0.6*(((Llas_zaathout/2+Llas_vrang_verti/1.2+Llas_vrang_hori/2)*7.8*tpmm**2)/4000) +2*(nvrang+nzaathout)
         personeel = aantal_jaar*90*3/5*urenpplaat
 
         vastekosten = 106260+229166.67*((43.7+0.3*nspant+2*nvrang)*137/8400)
@@ -322,7 +322,7 @@ class personeel():
 
         materiaal = aantal_jaar*8*(Lp*Bp*7800*tp+Bp*75*Lp/sg+(Bp/ss-1)*Lp*A_bulb*7800+Lp*75)+0.5*7800*tp*Llas
 
-        urenpplaat = 1/0.6*(((Llas_zaathout/2+Llas_vrang_verti/1.2+Llas_vrang_hori/2)*7.8*tpmm**2)/4000)
+        urenpplaat = 1/0.6*(((Llas_zaathout/2+Llas_vrang_verti/1.2+Llas_vrang_hori/2)*7.8*tpmm**2)/4000) +4*(nvrang+nzaathout)
         personeel = aantal_jaar*90*3/5*urenpplaat
 
         vastekosten = 106260+250000*((88.5+0.3*nspant+4*nvrang)*159/8400)
@@ -399,8 +399,8 @@ class vastekosten():
         materiaal = 4*(Lp*Bp*7800*tp+Bp*75*Lp/sg+(Bp/ss-1)*Lp*A_bulb*7800+Lp*75)+0.5*7800*tp*Llas
 
         personeel = aantal_jaar*(3933+27*nspant+180*nvrang)
-
-        vastekosten = 70*loods +275000*5
+        loods = 1500
+        vastekosten = 70*loods +275000*10
 
         totaal = materiaal + personeel + vastekosten 
         return vastekosten
@@ -424,7 +424,8 @@ class vastekosten():
 
         personeel = aantal_jaar*(7965+27*nspant+4320*260*nvrang)
 
-        vastekosten = 70*loods +300000*5
+        loods = 1500
+        vastekosten = 70*loods +300000*10
 
         totaal = materiaal + personeel + vastekosten 
         return vastekosten
