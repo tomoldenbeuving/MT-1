@@ -71,9 +71,13 @@ print('gearbox data loaded')
 
 # initial values
 in_p = 3.2830           # initial rpm
-iv_t_control =  np.array([0     ,0.2*tmax       ,0.2*tmax+1     , 0.4*tmax,0.4*tmax+1   ,0.6*tmax       ,0.6*tmax+1,0.8*tmax    ,0.8*tmax+1     , 1.0*tmax])
-X_parms =       np.array([1.0   ,1.0            ,0.75           , 0.75    ,0.5          ,0.5            ,0.25      , 0.25       ,0.01           , 0.01])   # % maximum fuelrack
-Y_parms =       np.array([1, 1, 1, 1, 1, 1, 1,1,1,1])               # disturbance factor
+
+Y_parms =       np.ones(tmax)
+
+tijd = np.linspace(0,tmax,tmax)
+iv_t_control =  tijd
+period = 2*math.pi/3600
+X_parms = 0.5 * np.sin(math.pi /1800 * tijd + 0.5 * math.pi) +0.5
 
 # simulation control parameters
 xvals = np.linspace(0, tmax-1, tmax)
