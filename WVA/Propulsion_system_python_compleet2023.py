@@ -71,9 +71,7 @@ print('gearbox data loaded')
 
 # initial values
 in_p = 3.2830           # initial rpm
-
 Y_parms =       np.ones(tmax)
-
 tijd = np.linspace(0,tmax,tmax)
 iv_t_control =  tijd
 period = 2*math.pi/3600
