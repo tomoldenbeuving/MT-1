@@ -35,14 +35,25 @@ frac1 = Fr**4/C_fm
 frac2 = C_tm/C_fm
 
 
+
 label = np.array(["V_m[m/s]","R_tm[N]","Fr[-]","Re[-]","C_fm[-]","C_tm[-]","Fr^4/C_fm[-]","C_tm/C_fm[-]"])
 
-table = np.array([v_m,R_tm,Fr,Re,C_fm,C_tm,frac1,frac2])
+table = np.array([Fr,Re,C_fm,C_tm,frac1,frac2])
 
 table_trans = table.T
 def display():
         with np.printoptions(precision=3, suppress=True):
                 print(table_trans)
 
+
+def plot():
+        figure = plt.figure(figsize=(16,9))
+        plt.xlabel(r"$F_n^4/C_{F,m}$")
+        plt.ylabel(r"$C_{T,m}/C_{F,m}$")
+        plt.title("Prohaska Plot")
+        plt.plot(frac1[3:11],frac2[3:11])
+        plt.show()
+
+plot()
 
 np.savetxt("tabel.csv", table_trans, delimiter=",",fmt='%10.3f')
