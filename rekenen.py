@@ -5,24 +5,21 @@ import matplotlib.pyplot as plt
 import matplotlib as cm
 from math import sqrt
 
-def Hws(ss,sg):
-    Ks = 1.2
-    ph= 20E3
-    sigY = 235E6
-    tws = 0.01
-    
-    y = 0.33*sqrt((Ks*ph*ss)/(sigY*tws))*sg
-    return y
+v_m = 1.59328
+v_s = 13.5*0.51444
+L_s = 31.5
+L_m = 31.5/19
+R_ts = 100.793*10**3
+vis_s = 1.2873E-6
+vis_m = 1.0811E-6
+rho_s = 1026.6376
+rho_m = 998.778
+s_s = 272.6
+s_m = 272.6/(19**2)
 
-vHws= np.vectorize(Hws)
-ss, sg = np.meshgrid(np.linspace(0.3,1.2,10), np.linspace(1,4,10))
+Re_s = (v_s*L_s)/vis_s
+Re_m = (v_m*L_m)/vis_m
 
-HWS = vHws(ss,sg)
+R_tm = 0.5*rho_m*v_m**2*s_m*(0.075/(m.log10(Re_m)-2)**2 + (2*R_ts)/(rho_s*v_s**2*s_s) - 0.075/(m.log10(Re_s)-2)**2)
 
-fig = plt.figure(figsize= (16,9))
-ax = plt.axes(projection="3d")
-surf = ax.plot_surface(ss,sg,HWS ,linewidth=0)
-ax.set_xlabel("iets")
-ax.set_ylabel("nogiets")
-fig.colorbar(surf,shrink=0.5,aspect=5)
-plt.show()
+print(R_tm)
