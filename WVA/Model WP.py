@@ -48,17 +48,21 @@ def display():
 
 rc = (1.33-1.28)/(0.2-0.1)
 lin = np.arange(0.0,0.21,0.01)
-k = 1.326-0.1
-func = lin*rc+k
+b = 1.326359-0.1
+func = lin*rc+b
+k = b-1
+k = "%.4f" % k
 
 def plot():
-        figure = plt.figure(figsize=(16,9))
+        figure = plt.figure(figsize=(8,5))
         plt.xlabel(r"$F_n^4/C_{F,m}$")
         plt.ylabel(r"$C_{T,m}/C_{F,m}$")
-        plt.title("Prohaska Plot, k=")
+        titel = "Prohaska Plot, k= "+str(k)
+        plt.title(titel)
         plt.plot(frac1,frac2)
         plt.plot(lin,func,c="orange",linestyle="dashed")
         plt.grid()
+        plt.savefig("Prohaska.png")
         plt.show()
 
 plot()
