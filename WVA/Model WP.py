@@ -55,7 +55,7 @@ def plot():
         figure = plt.figure(figsize=(16,9))
         plt.xlabel(r"$F_n^4/C_{F,m}$")
         plt.ylabel(r"$C_{T,m}/C_{F,m}$")
-        plt.title("Prohaska Plot, k="k)
+        plt.title("Prohaska Plot, k=")
         plt.plot(frac1,frac2)
         plt.plot(lin,func,c="orange",linestyle="dashed")
         plt.grid()
