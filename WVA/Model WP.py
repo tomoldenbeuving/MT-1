@@ -3,7 +3,7 @@ from scipy  import integrate
 import math as m
 import matplotlib.pyplot as plt
 import matplotlib as cm
-from math import sqrt
+
 
 np.errstate(divide = 'ignore') 
 #v_m = 1.59328
@@ -72,12 +72,15 @@ def display():
                 print(table_trans)
 
 
+#prohaska rechte lijn
 rc = (1.33-1.28)/(0.2-0.1)
 lin = np.arange(0.0,0.21,0.01)
 b = 1.326359-0.1
 func = lin*rc+b
 k = b-1
 k = "%.4f" % k
+
+
 
 def plot(var,var2):
         figure = plt.figure(figsize=(8,5))
@@ -99,6 +102,8 @@ def plot(var,var2):
 
 np.savetxt("tabel.csv", table_trans, delimiter=",",fmt='%10.3f')
 
+R_orgineel = np.genfromtxt("R_orgineel.csv",delimiter=",")
+v_orgineel = np.genfromtxt("v_orgineel.csv",delimiter=",")
 
 def plot_R_v(titel):
         figure = plt.figure(figsize=(8,5))
@@ -106,11 +111,9 @@ def plot_R_v(titel):
         plt.xlabel(r"$v_s \; [ms^{-1}]$")
         plt.title(titel)
         plt.plot(v_s,R_ts)
+        plt.plot(v_orgineel,R_orgineel)
         plt.scatter(v_s,R_ts,label="metingen MT-10")
-        plt.plot(v_s_vb,R_ts_vb)
-        plt.scatter(v_s_vb,R_ts_vb,label="referentie metingen")
         plt.ticklabel_format(style='sci', axis='y', scilimits=(0,0))
-        plt.legend()
 #        plt.plot(lin,func,c="orange",linestyle="dashed")
         titelfig= "./Plots/"+titel+".png"
         plt.grid()

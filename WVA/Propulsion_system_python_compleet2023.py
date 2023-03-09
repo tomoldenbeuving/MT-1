@@ -215,3 +215,6 @@ fig.tight_layout()
 fig.savefig('test_plot1.svg')
 fig.savefig('test_plot1.png')
 print('run time:',time.perf_counter()-start,'seconden')
+
+np.savetxt("R_orgineel.csv", R, delimiter=",",fmt='%10.3f')
+np.savetxt("v_orgineel.csv", v_s, delimiter=",",fmt='%10.3f')
