@@ -56,7 +56,8 @@ class totaal():
         urenpplaat = nplaat + 2 + 1/0.35*(Llas_plaat/15 +(Llas_vrang_verti/1.2 +(Llas_vrang_hori+Llas_zaathout+Llas_spant)/2)*(7.8*tpmm**2/2000) )+0.5*(nspant)+4*(nvrang+nzaathout)
         personeel = aantal_jaar*50* urenpplaat
 
-        loods
+        nplek = np.int32((urenpplaat*aantal_jaar)/2000)
+        loods = A*nplek
 
         vastekosten = 90*loods
 
@@ -83,6 +84,9 @@ class totaal():
         urenpplaat = nplaat + 2 + 1/0.35*(Llas_plaat/15 +(Llas_vrang_verti/1.2 +(Llas_vrang_hori+Llas_zaathout+Llas_spant)/2)*(7.8*tpmm**2/2000) )+0.5*(nspant)+8*(nvrang+nzaathout)
 
         personeel = aantal_jaar*50*urenpplaat
+
+        nplek = np.int32((urenpplaat*aantal_jaar)/2000)
+        loods = 2*A*nplek
 
         vastekosten = 90*loods
 
@@ -161,6 +165,58 @@ def plot_totaal(titel):
     titeltje= "Functie van verstijver spacing, voor "+titel
     plt.title(titeltje)
     plt.legend(loc = "best", shadow = True, fontsize="small")
-    figure.savefig("./plaatproductie/"+titel+".png")
+    figure.savefig("./construeren/plaatproductie/"+titel+".png")
+
+def plot_vastekosten(titel):
+    figure = plt.figure(figsize=(12,8))
+    plt.plot(ss,k_h_4_vast, c="green"     ,label="$kleine-plaat \quad s_g = 4m$")
+    plt.plot(ss,g_h_4_vast, c="darkgreen"     ,label="$grote-plaat \quad s_g = 4m$")
+    plt.plot(ss,k_h_3_vast, c="red"     ,label="$kleine-plaat \quad s_g = 3m$")
+    plt.plot(ss,g_h_3_vast, c="orange"     ,label="$grote-plaat \quad s_g = 3m$")
+    plt.plot(ss,k_h_2_vast, c="blue"     ,label="$kleine-plaat \quad s_g = 2m$")
+    plt.plot(ss,g_h_2_vast, c="darkblue"     ,label="$grote-plaat \quad s_g = 2m$")
+    plt.xlabel("verstijver spacing [m]")
+    plt.ylabel("kosten [euro]")
+    titeltje= "Functie van verstijver spacing, voor "+titel
+    plt.title(titeltje)
+    plt.legend(loc = "best", shadow = True, fontsize="small")
+    figure.savefig("./construeren/plaatproductie/"+titel+".png")
+
+def plot_personeel(titel):
+    figure = plt.figure(figsize=(12,8))
+    plt.plot(ss,k_h_4_per, c="green"     ,label="$kleine-plaat \quad s_g = 4m$")
+    plt.plot(ss,g_h_4_per, c="darkgreen"     ,label="$grote-plaat \quad s_g = 4m$")
+    plt.plot(ss,k_h_3_per, c="red"     ,label="$kleine-plaat \quad s_g = 3m$")
+    plt.plot(ss,g_h_3_per, c="orange"     ,label="$grote-plaat \quad s_g = 3m$")
+    plt.plot(ss,k_h_2_per, c="blue"     ,label="$kleine-plaat \quad s_g = 2m$")
+    plt.plot(ss,g_h_2_per, c="darkblue"     ,label="$grote-plaat \quad s_g = 2m$")
+    plt.xlabel("verstijver spacing [m]")
+    plt.ylabel("kosten [euro]")
+    titeltje= "Functie van verstijver spacing, voor "+titel
+    plt.title(titeltje)
+    plt.legend(loc = "best", shadow = True, fontsize="small")
+    figure.savefig("./construeren/plaatproductie/"+titel+".png")
+
+def plot_materiaal(titel):
+    figure = plt.figure(figsize=(12,8))
+    plt.plot(ss,k_h_4_mat, c="green"     ,label="$kleine-plaat \quad s_g = 4m$")
+    plt.plot(ss,g_h_4_mat, c="darkgreen"     ,label="$grote-plaat \quad s_g = 4m$")
+    plt.plot(ss,k_h_3_mat, c="red"     ,label="$kleine-plaat \quad s_g = 3m$")
+    plt.plot(ss,g_h_3_mat, c="orange"     ,label="$grote-plaat \quad s_g = 3m$")
+    plt.plot(ss,k_h_2_mat, c="blue"     ,label="$kleine-plaat \quad s_g = 2m$")
+    plt.plot(ss,g_h_2_mat, c="darkblue"     ,label="$grote-plaat \quad s_g = 2m$")
+    plt.xlabel("verstijver spacing [m]")
+    plt.ylabel("kosten [euro]")
+    titeltje= "Functie van verstijver spacing, voor "+titel
+    plt.title(titeltje)
+    plt.legend(loc = "best", shadow = True, fontsize="small")
+    figure.savefig("./construeren/plaatproductie/"+titel+".png")
+
+
+plot_vastekosten("vastekosten hand")
 
 plot_totaal("totale kosten hand")
+
+plot_personeel("personeelskosten hand")
+
+plot_materiaal("materiaal kosten")
