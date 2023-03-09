@@ -47,8 +47,16 @@ v_s = v_m*m.sqrt(aL)
 Re_s = (v_s*L_s)/vis_s
 Re_m = (v_m*L_m)/vis_m
 C_ts = 0.075/(np.log10(Re_s)-2)**2 + (2*R_tm)/(rho_m*v_m**2*s_m) - 0.075/(np.log10(Re_m)-2)**2
-
 R_ts = 0.5*C_ts*rho_s*v_s**2*s_s 
+
+v_s_vb = v_m_vb*m.sqrt(aL)
+Re_s_vb = (v_s_vb*L_s)/vis_s
+Re_m_vb = (v_m_vb*L_m)/vis_m
+C_ts_vb = 0.075/(np.log10(Re_s_vb)-2)**2 + (2*R_tm_vb)/(rho_m*v_m_vb**2*s_m) - 0.075/(np.log10(Re_m_vb)-2)**2
+R_ts_vb = 0.5*C_ts_vb*rho_s*v_s_vb**2*s_s 
+
+
+
 
 label = np.array(["V_m[m/s]","R_tm[N]","Fr[-]","Re[-]","C_fm[-]","C_tm[-]","Fr^4/C_fm[-]","C_tm/C_fm[-]"])
 
@@ -84,25 +92,29 @@ def plot(var,var2):
 #        plt.plot(lin,func,c="orange",linestyle="dashed")
         plt.grid()
         plt.legend()
-        plt.savefig("Prohaska verpeste WP.png")
+        plt.savefig("./Plots/Prohaska.png")
         plt.show()
 
-plot(table,table_vb)
+#plot(table,table_vb)
 
 np.savetxt("tabel.csv", table_trans, delimiter=",",fmt='%10.3f')
 
 
-def plot_R_v(var,var2,titel):
+def plot_R_v(titel):
         figure = plt.figure(figsize=(8,5))
         plt.ylabel(r"$R_s \; [N]$")
         plt.xlabel(r"$v_s \; [ms^{-1}]$")
         plt.title(titel)
-        plt.plot(var,var2)
-        plt.scatter(var,var2)
+        plt.plot(v_s,R_ts)
+        plt.scatter(v_s,R_ts,label="metingen MT-10")
+        plt.plot(v_s_vb,R_ts_vb)
+        plt.scatter(v_s_vb,R_ts_vb,label="referentie metingen")
+        plt.ticklabel_format(style='sci', axis='y', scilimits=(0,0))
+        plt.legend()
 #        plt.plot(lin,func,c="orange",linestyle="dashed")
-        titelfig= titel+".png"
+        titelfig= "./Plots/"+titel+".png"
         plt.grid()
         plt.savefig(titelfig)
         plt.show()
 
-#plot_R_v(v_s,R_ts,"scheepsweerstand")
+plot_R_v("scheepsweerstand")
