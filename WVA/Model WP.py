@@ -143,6 +143,6 @@ R_v = np.array([R_ts_vb,v_s_vb])
 R_v = R_v.T
 np.savetxt("tabel R,v.csv", R_v, delimiter=",",fmt='%10.3f')
 
-plot_R_v("scheepsweerstand")
+plot_R_v("scheepsweerstand met aangpast model")
 
 
