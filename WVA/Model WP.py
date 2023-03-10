@@ -124,7 +124,6 @@ def plot_R_v(titel):
         plt.plot(v_orgineel,R_orgineel,c="blue",label="model waarden, orgineel")
         plt.plot(v_aangepast,R_aangepast,c="orange",label="model waarden, nieuwe polynoom")
         plt.ticklabel_format(style='sci', axis='y', scilimits=(0,0))
-        plt.plot(lin,func,c="orange",linestyle="dashed")
         titelfig= "./Plots/"+titel+".png"
         plt.grid()
         
