@@ -111,7 +111,6 @@ R_aangepast = np.genfromtxt("R_aangepast.csv",delimiter=",")
 v_aangepast = np.genfromtxt("v_aangepast.csv",delimiter=",")
 
 fit = np.polyfit(v_s_vb,R_ts_vb,5)
-print(fit)
 f = np.poly1d(fit)
 x = np.linspace(0,7,100)
 
@@ -121,10 +120,9 @@ def plot_R_v(titel):
         plt.ylabel(r"$R_s \; [N]$")
         plt.xlabel(r"$v_s \; [ms^{-1}]$")
         plt.title(titel)
-        plt.plot(v_s_vb,R_ts_vb,linestyle="dashed",label="meetwaarden, teruggeschaald")
+        plt.plot(v_s_vb,R_ts_vb,linestyle="dashed",marker=".",label="meetwaarden, teruggeschaald")
         plt.plot(v_orgineel,R_orgineel,c="blue",label="model waarden, orgineel")
-        plt.plot(v_aangepast,R_aangepast,c="orange",label="model waarden, aangepast")
-        plt.scatter(v_s_vb,R_ts_vb,label="metingen MT-10")
+        plt.plot(v_aangepast,R_aangepast,c="orange",label="model waarden, nieuwe polynoom")
         plt.ticklabel_format(style='sci', axis='y', scilimits=(0,0))
         plt.plot(lin,func,c="orange",linestyle="dashed")
         titelfig= "./Plots/"+titel+".png"
