@@ -111,11 +111,12 @@ R_aangepast = np.genfromtxt("R_aangepast.csv",delimiter=",")
 v_aangepast = np.genfromtxt("v_aangepast.csv",delimiter=",")
 
 fit = np.polyfit(v_s_vb,R_ts_vb,5)
+print(fit)
 f = np.poly1d(fit)
 x = np.linspace(0,7,100)
 
 def plot_R_v(titel):
-        figure = plt.figure(figsize=(19.20,10.80))
+        figure = plt.figure(figsize=(19.20/2,10.80/2))
         ax = plt.subplot(111)
         plt.ylabel(r"$R_s \; [N]$")
         plt.xlabel(r"$v_s \; [ms^{-1}]$")
@@ -133,7 +134,7 @@ def plot_R_v(titel):
                         box.width, box.height * 0.9])
 
         # Put a legend below current axis
-        ax.legend(loc='upper center', bbox_to_anchor=(0.5, -0.1),
+        ax.legend(loc='upper center', bbox_to_anchor=(0.5, -0.15),
                 fancybox=True, shadow=True, ncol=5)
 
         plt.savefig(titelfig)
@@ -143,6 +144,6 @@ R_v = np.array([R_ts_vb,v_s_vb])
 R_v = R_v.T
 np.savetxt("tabel R,v.csv", R_v, delimiter=",",fmt='%10.3f')
 
-plot_R_v("scheepsweerstand met aangpast model")
+plot_R_v("scheepsweerstand met aangepast model")
 
 
