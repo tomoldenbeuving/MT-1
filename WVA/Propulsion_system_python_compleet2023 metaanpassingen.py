@@ -37,8 +37,8 @@ print('water properties loaded')
 
 # ship data
 m_ship = 358000         # ship mass [kg]
-c1 = 1500  
-v_s0=0.             # resistance coefficient c1 in R = c1*vs^2
+c1 = 1500       
+v_s0 = 0        # resistance coefficient c1 in R = c1*vs^2
 #v_s0 = 6.5430           # ship design speed [m/s]
 t = 0.1600              # thrust deduction factor[-]
 w = 0.2000              # wake factor [-]
@@ -72,11 +72,10 @@ print('gearbox data loaded')
 
 # initial values
 in_p = 3.2830           # initial rpm
-Y_parms =       np.ones(tmax)
-tijd = np.linspace(0,tmax,tmax)
 iv_t_control = np.array([0,tmax])
 X_parms = np.array([0,1])   # % maximum fuelrack
-Y_parms = np.array([1, 1])    
+Y_parms = np.array([1, 1])               # disturbance factor
+
 # simulation control parameters
 xvals = np.linspace(0, tmax-1, tmax)
 ov_X_set = np.interp(xvals, iv_t_control, X_parms)
@@ -84,9 +83,8 @@ ov_Y_set = np.interp(xvals, iv_t_control, Y_parms)
 
 # --------- Start van de funtie definities
 
-def R_schip(snelheid_schip, Y, c1):
-     
-      weerstand =  Y * c1 * snelheid_schip**2
+def R_schip(v, Y):
+      weerstand = Y*(56.32937638*v**5-764.50436608*v**4  + 3868.76371477*v**3 -7618.88519419*v**2 +5851.40183619*v  - 248.82429537)
       return weerstand
 
 
@@ -111,7 +109,7 @@ n_e[0] = 900/60         # Nominal engine speed in rotations per second [Hz]
 # Resistance [N]
 R = np.zeros(tmax)
 Y = ov_Y_set[0]
-R[0] = R_schip(v_s0, Y, c1)
+R[0] = R_schip(v_s0, Y)
 # Acceleration ship [m/s^2]
 sum_a = np.zeros(tmax)
 # Acceleration propellor[1/s^2]
@@ -161,7 +159,7 @@ for k in range(tmax-1):
     P_T[k+1] = F_prop[k] * v_a[k+1]
     # Resistance
     Y = ov_Y_set[k]
-    R[k+1] = R_schip( v_s[k+1], Y, c1)
+    R[k+1] = R_schip( v_s[k+1], Y)
     P_E[k+1] = v_s[k+1] * R[k+1]
     # Calculate acceleration from resulting force --> propellor np
     sum_dnpdt[k+1] = ((M_b[k] * i_gb * eta_TRM) - M_prop[k])/(2*math.pi*I_tot)
@@ -216,5 +214,5 @@ fig.savefig('test_plot1.svg')
 fig.savefig('test_plot1.png')
 print('run time:',time.perf_counter()-start,'seconden')
 
-np.savetxt("R_orgineel.csv", R, delimiter=",",fmt='%10.3f')
-np.savetxt("v_orgineel.csv", v_s, delimiter=",",fmt='%10.3f')
+np.savetxt("R_aangepast.csv", R, delimiter=",",fmt='%10.3f')
+np.savetxt("v_aangepast.csv", v_s, delimiter=",",fmt='%10.3f')

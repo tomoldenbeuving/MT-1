@@ -58,13 +58,16 @@ R_ts_vb = 0.5*C_ts_vb*rho_s*v_s_vb**2*s_s
 
 
 
+
+
 label = np.array(["V_m[m/s]","R_tm[N]","Fr[-]","Re[-]","C_fm[-]","C_tm[-]","Fr^4/C_fm[-]","C_tm/C_fm[-]"])
 
 table_vb = np.array(rekenen(v_m_vb,R_tm_vb))
 
 table = np.array(rekenen(v_m,R_tm))
 
-
+R_ts = np.nan_to_num(R_ts)
+R_ts_vb = np.nan_to_num(R_ts_vb)
 
 table_trans = table_vb.T
 def display():
@@ -73,51 +76,76 @@ def display():
 
 
 #prohaska rechte lijn
-rc = (1.33-1.28)/(0.2-0.1)
+rc = (table_vb[5,5]-table_vb[5,4]+0.0047)/(table_vb[4,5]-table_vb[4,4])
 lin = np.arange(0.0,0.21,0.01)
-b = 1.326359-0.1
+b = table_vb[5,4] - rc*0.1 +0.0185
 func = lin*rc+b
 k = b-1
 k = "%.4f" % k
 
 
 
-def plot(var,var2):
+def plot(var,):
         figure = plt.figure(figsize=(8,5))
         plt.xlabel(r"$F_n^4/C_{F,m}$")
         plt.ylabel(r"$C_{T,m}/C_{F,m}$")
-        titel = "Prohaska Plot weerstandsproef"
+        titel = "Prohaska Plot weerstandsproef, k= "+str(k)
         plt.title(titel)
         plt.plot(var[4],var[5])
-        plt.scatter(var[4],var[5],label="metingen MT-10")
-        plt.plot(var2[4],var2[5])
-        plt.scatter(var2[4],var2[5],label="referentie metingen")
-#        plt.plot(lin,func,c="orange",linestyle="dashed")
+        plt.xlim(0,0.25)
+        plt.ylim(1.2,1.4)
+        plt.scatter(var[4],var[5],label="referentie metingen")
+        plt.plot(lin,func,c="orange",linestyle="dashed")
         plt.grid()
-        plt.legend()
-        plt.savefig("./Plots/Prohaska.png")
+        plt.savefig("./Plots/Prohaska met wrijvingslijn.png")
         plt.show()
 
-#plot(table,table_vb)
+#plot(table_vb)
 
 np.savetxt("tabel.csv", table_trans, delimiter=",",fmt='%10.3f')
 
 R_orgineel = np.genfromtxt("R_orgineel.csv",delimiter=",")
 v_orgineel = np.genfromtxt("v_orgineel.csv",delimiter=",")
 
+R_aangepast = np.genfromtxt("R_aangepast.csv",delimiter=",")
+v_aangepast = np.genfromtxt("v_aangepast.csv",delimiter=",")
+
+fit = np.polyfit(v_s_vb,R_ts_vb,5)
+print(fit)
+f = np.poly1d(fit)
+x = np.linspace(0,7,100)
+
 def plot_R_v(titel):
-        figure = plt.figure(figsize=(8,5))
+        figure = plt.figure(figsize=(19.20,10.80))
+        ax = plt.subplot(111)
         plt.ylabel(r"$R_s \; [N]$")
         plt.xlabel(r"$v_s \; [ms^{-1}]$")
         plt.title(titel)
-        plt.plot(v_s,R_ts)
-        plt.plot(v_orgineel,R_orgineel)
-        plt.scatter(v_s,R_ts,label="metingen MT-10")
+        plt.plot(v_s_vb,R_ts_vb,linestyle="dashed",label="meetwaarden, teruggeschaald")
+        plt.plot(v_orgineel,R_orgineel,c="blue",label="model waarden, orgineel")
+        plt.plot(v_aangepast,R_aangepast,c="orange",label="model waarden, aangepast")
+        plt.scatter(v_s_vb,R_ts_vb,label="metingen MT-10")
         plt.ticklabel_format(style='sci', axis='y', scilimits=(0,0))
-#        plt.plot(lin,func,c="orange",linestyle="dashed")
+        plt.plot(lin,func,c="orange",linestyle="dashed")
         titelfig= "./Plots/"+titel+".png"
         plt.grid()
+        
+        # Shrink current axis's height by 10% on the bottom
+        box = ax.get_position()
+        ax.set_position([box.x0, box.y0 + box.height * 0.1,
+                        box.width, box.height * 0.9])
+
+        # Put a legend below current axis
+        ax.legend(loc='upper center', bbox_to_anchor=(0.5, -0.1),
+                fancybox=True, shadow=True, ncol=5)
+
         plt.savefig(titelfig)
         plt.show()
 
+R_v = np.array([R_ts_vb,v_s_vb])
+R_v = R_v.T
+np.savetxt("tabel R,v.csv", R_v, delimiter=",",fmt='%10.3f')
+
 plot_R_v("scheepsweerstand")
+
+
