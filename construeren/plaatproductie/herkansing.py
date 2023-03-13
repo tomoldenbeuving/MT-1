@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import math as m
+import scipy
 
 ss = np.linspace(0.3,1.0,701)
 groepsnummer = 2
@@ -8,7 +9,7 @@ station  = 5
 uren = 8
 n_perstation= 3 #aantal pesonen  
 T = 8
-Ks = 1.2
+Ks = 1.
 rho = 1025
 g = 9.81
 p = T *g *rho
@@ -49,7 +50,7 @@ class totaal():
         aantal_jaar = capaciteit/A 
         nplaat = Bp/bp
         nlas = nplaat -1
-        nspant = np.int64(Bp/ss-nzaathout -1)
+        nspant = Bp/ss-nzaathout -1
         nvrang = Lp/sg
         nkruising = nvrang*(nspant+nzaathout)
         Llas_plaat = nlas*Lp     
@@ -61,11 +62,12 @@ class totaal():
 
         m_plaat = Lp * Bp * tp*rho_plaat 
         m_z = nzaathout*Lp*75
-        m_s = nspant*Lp*A_bulb*rho_plaat
-        m_g = nvrang*Bp*75
+        m_s = np.int32(nspant)*Lp*A_bulb*rho_plaat
+        m_g = np.int32(nvrang)*Bp*75
         m_totaal = m_plaat+m_z+m_s+m_g
         materiaal = aantal_jaar*m_totaal
         
+
         x = nplaat-1 + 2
         y = Llas_plaat/14400
         z1 = (Llas_vrang_verti/1.2 +(Llas_vrang_hori+Llas_zaathout+Llas_spant)/2)
@@ -111,8 +113,8 @@ class totaal():
 
         m_plaat = 2*Lp * Bp * tp*rho_plaat 
         m_z = nzaathout*2*Lp*75
-        m_s = nspant*2*Lp*A_bulb*rho_plaat
-        m_g = nvrang*Bp*75
+        m_s = np.int32(nspant)*2*Lp*A_bulb*rho_plaat
+        m_g = np.int32(nvrang)*Bp*75
         m_totaal = m_plaat+m_z+m_s+m_g
         materiaal = aantal_jaar*m_totaal
 
@@ -158,7 +160,14 @@ class totaal():
         m_totaal = m_plaat+m_z+m_s+m_g
         materiaal = aantal_jaar*m_totaal
 
-        urenpplaat = 5*((Llas_vrang_verti/1.2 +(Llas_vrang_hori+Llas_zaathout+Llas_spant)/2)*(7.8*5**2/2000) )/4 +2*(nvrang+nzaathout)
+        loc4en5 = (((Llas_vrang_verti/1.2 +(Llas_vrang_hori+Llas_zaathout)/2)*(7.8*5**2/2000) )/0.6 +2*(nvrang+nzaathout))/2
+        loc3 = (Llas_spant/2)*((7.8*5**2)/2000)/0.6
+        urenpplaat = np.zeros(len(ss))
+        for i in range(len(urenpplaat)):
+            if loc3[i] > loc4en5[i]:
+                urenpplaat[i] = loc3[i]
+            if loc4en5[i] > loc3[i]:
+                urenpplaat[i] = loc4en5[i]
         personeel = aantal_jaar*90*urenpplaat
         loods = 1500
         vastekosten = 70*loods +275000*10*ss/ss
@@ -195,7 +204,15 @@ class totaal():
         m_totaal = m_plaat+m_z+m_s+m_g
         materiaal = aantal_jaar*m_totaal
         
-        urenpplaat = 5*((Llas_vrang_verti/1.2 +(Llas_vrang_hori+Llas_zaathout+Llas_spant)/2)*(7.8*5**2/2000) )/4 +4*(nvrang+nzaathout)
+        loc4en5 = (((Llas_vrang_verti/1.2 +(Llas_vrang_hori+Llas_zaathout)/2)*(7.8*5**2/2000))/0.6 +4*(nvrang+nzaathout))/2
+        loc3 = (Llas_spant/2)*((7.8*5**2)/2000)/0.6
+        urenpplaat = np.zeros(len(ss))
+        for i in range(len(urenpplaat)):
+            if loc3[i] > loc4en5[i]:
+                urenpplaat[i] = loc3[i]
+            if loc4en5[i] > loc3[i]:
+                urenpplaat[i] = loc4en5[i]
+
         personeel = aantal_jaar*90*urenpplaat
         loods = 1500
         vastekosten = 70*loods +300000*10*ss/ss
@@ -344,6 +361,24 @@ def plot_personeel_robot(titel):
     figure.savefig("./construeren/plaatproductie/"+titel+".png")
 
 
+def bar_plot():
+    materiaal_tup = (min(k_h_4_mat),min(g_h_4_mat),min(k_h_4_mat),min(g_h_4_mat))
+    personeel_tup = (min(k_h_4_per),min(g_h_4_per),min(k_r_4_per),min(g_r_4_per))
+    vastekosten_tup = (min(k_h_4_vast),min(g_h_4_vast),min(k_r_4_vast),min(g_r_4_vast))
+    figure = plt.figure(figsize=(10,8))
+    ind = np.arange(4)
+    plt.bar(ind, np.array(materiaal_tup), 0.35,    color="red", label="materiaal")
+    plt.bar(ind, np.array(personeel_tup),  0.35,   bottom=np.array(materiaal_tup),   color="green", label="personeel")
+    plt.bar(ind, np.array(vastekosten_tup), 0.35,  bottom=np.array(personeel_tup)+np.array(materiaal_tup),    color="blue", label="vastekosten")
+    plt.xticks(ind,["klein, hand","groot, hand","klein, robot","groot, robot"])
+    plt.ticklabel_format(style='sci', axis='y', scilimits=(6,6))
+    plt.ylabel("kosten [euro]")
+    titeltje= "Kosten in de vier scenarios"
+    plt.title(titeltje)
+    plt.legend(loc = "best", shadow = True, fontsize="small")
+    figure.savefig("./construeren/plaatproductie/barplot voor onze waardes.png")
+
+bar_plot()
 plot_vastekosten("vastekosten hand")
 
 plot_totaal("totale kosten hand")
