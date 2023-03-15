@@ -56,10 +56,6 @@ C_ts_vb = 0.075/(np.log10(Re_s_vb)-2)**2 + (2*R_tm_vb)/(rho_m*v_m_vb**2*s_m) - 0
 R_ts_vb = 0.5*C_ts_vb*rho_s*v_s_vb**2*s_s 
 
 
-
-
-
-
 label = np.array(["V_m[m/s]","R_tm[N]","Fr[-]","Re[-]","C_fm[-]","C_tm[-]","Fr^4/C_fm[-]","C_tm/C_fm[-]"])
 
 table_vb = np.array(rekenen(v_m_vb,R_tm_vb))
@@ -145,5 +141,4 @@ R_v = R_v.T
 np.savetxt("tabel R,v.csv", R_v, delimiter=",",fmt='%10.3f')
 
 plot_R_v("scheepsweerstand met aangepast model")
-
 
