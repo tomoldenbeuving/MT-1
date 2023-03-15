@@ -167,3 +167,28 @@ def plot_M_n(titel):
         plt.savefig(titelfig)
 
 plot_M_n("Koppel-motor over toerental") 
+
+
+def plot_P_b(titel):
+        figure = plt.figure(figsize=(19.20/2,10.80/2))
+        ax = plt.subplot(111)
+        plt.ylabel(r"$P_b \; [W]$")
+        plt.xlabel(r"$n_e \; [s^{-1}]$")
+        plt.title(titel)
+        plt.plot(model.n_e,model.P_b,label="Vermogen")
+        plt.ticklabel_format(style='sci', axis='y', scilimits=(0,0))
+        titelfig= "./Plots/"+titel+".png"
+        plt.grid()
+        
+        # Shrink current axis's height by 10% on the bottom
+        box = ax.get_position()
+        ax.set_position([box.x0, box.y0 + box.height * 0.1,
+                        box.width, box.height * 0.9])
+
+        # Put a legend below current axis
+        ax.legend(loc='upper center', bbox_to_anchor=(0.5, -0.15),
+                fancybox=True, shadow=True, ncol=5)
+
+        plt.savefig(titelfig)
+
+plot_M_n("Vermogen-motor over toerental") 
