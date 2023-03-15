@@ -96,6 +96,8 @@ def plot(var,):
         plt.savefig("./Plots/Prohaska met wrijvingslijn.png")
         plt.show()
 
+
+
 #plot(table_vb)
 
 np.savetxt("tabel.csv", table_trans, delimiter=",",fmt='%10.3f')
@@ -141,4 +143,12 @@ R_v = R_v.T
 np.savetxt("tabel R,v.csv", R_v, delimiter=",",fmt='%10.3f')
 
 plot_R_v("scheepsweerstand met aangepast model")
+
+plt.figure()
+plt.plot(model.n_e, model.P_b)
+plt.grid()
+plt.xlabel(n_e [1/s])
+plt.ylabel(P_b[j/s])
+plt.show()
+
 
