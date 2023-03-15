@@ -4,7 +4,7 @@ import math as m
 import matplotlib.pyplot as plt
 import matplotlib as cm
 
-import Propulsion_system_python_compleet2023_metaanpassingen as mod
+import Propulsion_system_python_compleet2023_metaanpassingen as model
 import Propulsion_system_python_compleet2023 as orgineel
 
 
