@@ -211,8 +211,6 @@ ax4.set(ylabel='Fuel rack [-]',
 ax4.grid()
 fig.tight_layout()
 
-plt.show()
-
 
 fig.savefig('test_plot1.svg')
 fig.savefig('test_plot1.png')

@@ -150,7 +150,7 @@ def plot_M_n(titel):
         plt.ylabel(r"$M_b \; [Nm]$")
         plt.xlabel(r"$n_e \; [s^{-1}]$")
         plt.title(titel)
-        plt.plot(model.n_e,model.M_b,linestyle="dashed",marker=".",label="Koppel")
+        plt.plot(model.n_e,model.M_b,label="Koppel")
         plt.ticklabel_format(style='sci', axis='y', scilimits=(0,0))
         titelfig= "./Plots/"+titel+".png"
         plt.grid()
@@ -165,6 +165,5 @@ def plot_M_n(titel):
                 fancybox=True, shadow=True, ncol=5)
 
         plt.savefig(titelfig)
-        plt.show()
 
-plot_M_n(Koppel-) 
+plot_M_n("Koppel-motor over toerental") 
