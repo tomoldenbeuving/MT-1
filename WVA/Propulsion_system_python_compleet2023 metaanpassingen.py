@@ -19,6 +19,7 @@ import numpy as np
 import math
 import matplotlib.pyplot as plt
 import time
+#ik heb iets aangepast
 
 #from scipy import integrate
 
