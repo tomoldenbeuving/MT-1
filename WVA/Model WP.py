@@ -4,6 +4,8 @@ import math as m
 import matplotlib.pyplot as plt
 import matplotlib as cm
 
+import Propulsion_system_python_compleet2023_metaanpassingen as model
+
 
 np.errstate(divide = 'ignore') 
 #v_m = 1.59328
@@ -107,8 +109,8 @@ np.savetxt("tabel.csv", table_trans, delimiter=",",fmt='%10.3f')
 R_orgineel = np.genfromtxt("R_orgineel.csv",delimiter=",")
 v_orgineel = np.genfromtxt("v_orgineel.csv",delimiter=",")
 
-R_aangepast = np.genfromtxt("R_aangepast.csv",delimiter=",")
-v_aangepast = np.genfromtxt("v_aangepast.csv",delimiter=",")
+R_aangepast = model.R
+v_aangepast = model.v_s
 
 fit = np.polyfit(v_s_vb,R_ts_vb,5)
 print(fit)
@@ -145,5 +147,4 @@ R_v = R_v.T
 np.savetxt("tabel R,v.csv", R_v, delimiter=",",fmt='%10.3f')
 
 plot_R_v("scheepsweerstand met aangepast model")
-
 
