@@ -4,7 +4,7 @@ import math as m
 import matplotlib.pyplot as plt
 import matplotlib as cm
 
-import Propulsion_system_python_compleet2023_metaanpassingen as model
+import Propulsion_system_python_compleet2023_metaanpassingen as mod
 import Propulsion_system_python_compleet2023 as orgineel
 
 
@@ -150,7 +150,7 @@ def plot_M_n(titel):
         plt.ylabel(r"$M_b \; [Nm]$")
         plt.xlabel(r"$n_e \; [s^{-1}]$")
         plt.title(titel)
-        plt.plot(model.n_e,model.M_b,label="Koppel")
+        plt.plot(orgineel.n_e, orgineel.M_b,label="Koppel")
         plt.ticklabel_format(style='sci', axis='y', scilimits=(0,0))
         titelfig= "./Plots/"+titel+".png"
         plt.grid()
@@ -175,7 +175,7 @@ def plot_P_b(titel):
         plt.ylabel(r"$P_b \; [W]$")
         plt.xlabel(r"$n_e \; [s^{-1}]$")
         plt.title(titel)
-        plt.plot(model.n_e,model.P_b,label="Vermogen")
+        plt.plot(orgineel.n_e, orgineel.P_b,label="Vermogen")
         plt.ticklabel_format(style='sci', axis='y', scilimits=(0,0))
         titelfig= "./Plots/"+titel+".png"
         plt.grid()
