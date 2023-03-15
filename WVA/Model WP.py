@@ -191,4 +191,4 @@ def plot_P_b(titel):
 
         plt.savefig(titelfig)
 
-plot_M_n("Vermogen-motor over toerental") 
+plot_P_b("Vermogen-motor over toerental") 
