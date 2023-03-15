@@ -4,6 +4,9 @@ import math as m
 import matplotlib.pyplot as plt
 import matplotlib as cm
 
+import Propulsion_system_python_compleet2023_metaanpassingen as model
+import Propulsion_system_python_compleet2023 as orgineel
+
 
 np.errstate(divide = 'ignore') 
 #v_m = 1.59328
@@ -94,19 +97,16 @@ def plot(var,):
         plt.plot(lin,func,c="orange",linestyle="dashed")
         plt.grid()
         plt.savefig("./Plots/Prohaska met wrijvingslijn.png")
-        plt.show()
-
-
 
 #plot(table_vb)
 
 np.savetxt("tabel.csv", table_trans, delimiter=",",fmt='%10.3f')
 
-R_orgineel = np.genfromtxt("R_orgineel.csv",delimiter=",")
-v_orgineel = np.genfromtxt("v_orgineel.csv",delimiter=",")
+R_orgineel = orgineel.R
+v_orgineel = orgineel.v_s
 
-R_aangepast = np.genfromtxt("R_aangepast.csv",delimiter=",")
-v_aangepast = np.genfromtxt("v_aangepast.csv",delimiter=",")
+R_aangepast = model.R
+v_aangepast = model.v_s
 
 fit = np.polyfit(v_s_vb,R_ts_vb,5)
 print(fit)
@@ -136,7 +136,6 @@ def plot_R_v(titel):
                 fancybox=True, shadow=True, ncol=5)
 
         plt.savefig(titelfig)
-        plt.show()
 
 R_v = np.array([R_ts_vb,v_s_vb])
 R_v = R_v.T
@@ -144,11 +143,27 @@ np.savetxt("tabel R,v.csv", R_v, delimiter=",",fmt='%10.3f')
 
 plot_R_v("scheepsweerstand met aangepast model")
 
-plt.figure()
-plt.plot(model.n_e, model.P_b)
-plt.grid()
-plt.xlabel(n_e [1/s])
-plt.ylabel(P_b[j/s])
-plt.show()
 
+def plot_M_n(titel):
+        figure = plt.figure(figsize=(19.20/2,10.80/2))
+        ax = plt.subplot(111)
+        plt.ylabel(r"$M_b \; [Nm]$")
+        plt.xlabel(r"$n_e \; [s^{-1}]$")
+        plt.title(titel)
+        plt.plot(model.n_e,model.M_b,label="Koppel")
+        plt.ticklabel_format(style='sci', axis='y', scilimits=(0,0))
+        titelfig= "./Plots/"+titel+".png"
+        plt.grid()
+        
+        # Shrink current axis's height by 10% on the bottom
+        box = ax.get_position()
+        ax.set_position([box.x0, box.y0 + box.height * 0.1,
+                        box.width, box.height * 0.9])
 
+        # Put a legend below current axis
+        ax.legend(loc='upper center', bbox_to_anchor=(0.5, -0.15),
+                fancybox=True, shadow=True, ncol=5)
+
+        plt.savefig(titelfig)
+
+plot_M_n("Koppel-motor over toerental") 
