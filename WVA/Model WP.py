@@ -55,8 +55,12 @@ R_ts = 0.5*C_ts*rho_s*v_s**2*s_s
 v_s_vb = v_m_vb*m.sqrt(aL)
 Re_s_vb = (v_s_vb*L_s)/vis_s
 Re_m_vb = (v_m_vb*L_m)/vis_m
-C_ts_vb = 0.075/(np.log10(Re_s_vb)-2)**2 + (2*R_tm_vb)/(rho_m*v_m_vb**2*s_m) - 0.075/(np.log10(Re_m_vb)-2)**2
+C_fs_vb = 0.075/(np.log10(Re_s_vb)-2)**2
+C_rs_vb = (2*R_tm_vb)/(rho_m*v_m_vb**2*s_m) - 0.075/(np.log10(Re_m_vb)-2)**2
+C_ts_vb = C_fs_vb+C_rs_vb
 R_ts_vb = 0.5*C_ts_vb*rho_s*v_s_vb**2*s_s 
+R_fs_vb = 0.5*C_fs_vb*rho_s*v_s_vb**2*s_s 
+R_rs_vb = 0.5*C_rs_vb*rho_s*v_s_vb**2*s_s 
 
 
 label = np.array(["V_m[m/s]","R_tm[N]","Fr[-]","Re[-]","C_fm[-]","C_tm[-]","Fr^4/C_fm[-]","C_tm/C_fm[-]"])
@@ -114,12 +118,14 @@ f = np.poly1d(fit)
 x = np.linspace(0,7,100)
 
 def plot_R_v(titel):
-        figure = plt.figure(figsize=(19.20/2,10.80/2))
+        figure = plt.figure(figsize=(10,6))
         ax = plt.subplot(111)
         plt.ylabel(r"$R_s \; [N]$")
         plt.xlabel(r"$v_s \; [ms^{-1}]$")
         plt.title(titel)
-        plt.plot(v_s_vb,R_ts_vb,linestyle="dashed",marker=".",label="meetwaarden, teruggeschaald")
+        plt.plot(v_s_vb,R_ts_vb,linestyle="dashed",marker=".",label="totaleweerstand")
+        plt.plot(v_s_vb,R_fs_vb,linestyle="dashed",marker=".",label="wrijvingsweerstand")
+        plt.plot(v_s_vb,R_rs_vb,linestyle="dashed",marker=".",label="restweerstand")
         plt.plot(v_orgineel,R_orgineel,c="blue",label="model waarden, orgineel")
         plt.plot(v_aangepast,R_aangepast,c="orange",label="model waarden, nieuwe polynoom")
         plt.ticklabel_format(style='sci', axis='y', scilimits=(0,0))
@@ -132,8 +138,8 @@ def plot_R_v(titel):
                         box.width, box.height * 0.9])
 
         # Put a legend below current axis
-        ax.legend(loc='upper center', bbox_to_anchor=(0.5, -0.15),
-                fancybox=True, shadow=True, ncol=5)
+        ax.legend(loc='upper center', bbox_to_anchor=(0.5, -0.1),
+                fancybox=True, shadow=True, ncol=3)
 
         plt.savefig(titelfig)
 
@@ -142,53 +148,3 @@ R_v = R_v.T
 np.savetxt("tabel R,v.csv", R_v, delimiter=",",fmt='%10.3f')
 
 plot_R_v("scheepsweerstand met aangepast model")
-
-
-def plot_M_n(titel):
-        figure = plt.figure(figsize=(19.20/2,10.80/2))
-        ax = plt.subplot(111)
-        plt.ylabel(r"$M_b \; [Nm]$")
-        plt.xlabel(r"$n_e \; [s^{-1}]$")
-        plt.title(titel)
-        plt.plot(orgineel.n_e, orgineel.M_b,label="Koppel")
-        plt.ticklabel_format(style='sci', axis='y', scilimits=(0,0))
-        titelfig= "./Plots/"+titel+".png"
-        plt.grid()
-        
-        # Shrink current axis's height by 10% on the bottom
-        box = ax.get_position()
-        ax.set_position([box.x0, box.y0 + box.height * 0.1,
-                        box.width, box.height * 0.9])
-
-        # Put a legend below current axis
-        ax.legend(loc='upper center', bbox_to_anchor=(0.5, -0.15),
-                fancybox=True, shadow=True, ncol=5)
-
-        plt.savefig(titelfig)
-
-plot_M_n("Koppel-motor over toerental") 
-
-
-def plot_P_b(titel):
-        figure = plt.figure(figsize=(19.20/2,10.80/2))
-        ax = plt.subplot(111)
-        plt.ylabel(r"$P_b \; [W]$")
-        plt.xlabel(r"$n_e \; [s^{-1}]$")
-        plt.title(titel)
-        plt.plot(orgineel.n_e, orgineel.P_b,label="Vermogen")
-        plt.ticklabel_format(style='sci', axis='y', scilimits=(0,0))
-        titelfig= "./Plots/"+titel+".png"
-        plt.grid()
-        
-        # Shrink current axis's height by 10% on the bottom
-        box = ax.get_position()
-        ax.set_position([box.x0, box.y0 + box.height * 0.1,
-                        box.width, box.height * 0.9])
-
-        # Put a legend below current axis
-        ax.legend(loc='upper center', bbox_to_anchor=(0.5, -0.15),
-                fancybox=True, shadow=True, ncol=5)
-
-        plt.savefig(titelfig)
-
-plot_P_b("Vermogen-motor over toerental") 

@@ -3,7 +3,7 @@ import numpy as np
 import math as m
 import scipy
 
-ss = np.linspace(0.3,1.0,701)
+ss = np.arange(0.3,1.001,0.05)
 groepsnummer = 2
 station  = 5
 uren = 8
@@ -44,8 +44,8 @@ class totaal():
         Fs = p*sg*bp/2
 
 
-        hvrang = np.sqrt(3/2)*np.sqrt(Mb * 1.2/(sigma_y*twg))
-        A_bulb = 0.40824829 * np.sqrt(Mb*twg*1.2/(sigma_y))
+        hvrang = 1.25
+        A_bulb = (((30*0.5)/15 ) + ((6*0.5)/12)) *sg * (np.sqrt((p*ss*tws)/(12*sigma_y )))
         nzaathout = 4
         aantal_jaar = capaciteit/A 
         nplaat = Bp/bp
@@ -95,8 +95,8 @@ class totaal():
         Fs = p*sg*bp/2
 
 
-        hvrang = np.sqrt(3/2)*np.sqrt(Mb * 1.2/(sigma_y*twg))
-        A_bulb = 0.40824829 * np.sqrt(Mb*twg*1.2/(sigma_y))
+        hvrang = 1.25
+        A_bulb = (((30*0.5)/15 ) + ((6*0.5)/12)) *sg * (np.sqrt((p*ss*tws)/(12*sigma_y )))
         nzaathout = 8
         aantal_jaar = capaciteit/(2*A) 
         nplaat = 2*Bp/bp
@@ -137,8 +137,8 @@ class totaal():
         Fs = p*sg*bp/2
 
 
-        hvrang = np.sqrt(3/2)*np.sqrt(Mb * 1.2/(sigma_y*twg))
-        A_bulb = 0.40824829 * np.sqrt(Mb*twg*1.2/(sigma_y))
+        hvrang = 1.25
+        A_bulb = (((30*0.5)/15 ) + ((6*0.5)/12)) *sg * (np.sqrt((p*ss*tws)/(12*sigma_y )))
         nzaathout = 4
         aantal_jaar = capaciteit/A 
         nplaat = Bp/bp
@@ -181,8 +181,8 @@ class totaal():
         Fs = p*sg*bp/2
 
 
-        hvrang = np.sqrt(3/2)*np.sqrt(Mb * 1.2/(sigma_y*twg))
-        A_bulb = 0.40824829 * np.sqrt(Mb*twg*1.2/(sigma_y))
+        hvrang = 1.25
+        A_bulb = (((30*0.5)/15 ) + ((6*0.5)/12)) *sg * (np.sqrt((p*ss*tws)/(12*sigma_y )))
         nzaathout = 8
         aantal_jaar = capaciteit/(2*A) 
         nplaat = 2*Bp/bp
@@ -256,6 +256,7 @@ def plot_totaal(titel):
     titeltje= "Functie van verstijver spacing, voor "+titel
     plt.title(titeltje)
     plt.legend(loc = "best", shadow = True, fontsize="small")
+    plt.grid()
     figure.savefig("./construeren/plaatproductie/"+titel+".png")
 
 def plot_vastekosten(titel):
@@ -273,6 +274,7 @@ def plot_vastekosten(titel):
     titeltje= "Functie van verstijver spacing, voor "+titel
     plt.title(titeltje)
     plt.legend(loc = "best", shadow = True, fontsize="small")
+    plt.grid()
     figure.savefig("./construeren/plaatproductie/"+titel+".png")
 
 def plot_personeel(titel):
@@ -290,6 +292,7 @@ def plot_personeel(titel):
     titeltje= "Functie van verstijver spacing, voor "+titel
     plt.title(titeltje)
     plt.legend(loc = "best", shadow = True, fontsize="small")
+    plt.grid()
     figure.savefig("./construeren/plaatproductie/"+titel+".png")
 
 def plot_materiaal(titel):
@@ -307,6 +310,7 @@ def plot_materiaal(titel):
     titeltje= "Functie van verstijver spacing, voor "+titel
     plt.title(titeltje)
     plt.legend(loc = "best", shadow = True, fontsize="small")
+    plt.grid()
     figure.savefig("./construeren/plaatproductie/"+titel+".png")
 
 def plot_totaal_robot(titel):
@@ -324,6 +328,7 @@ def plot_totaal_robot(titel):
     titeltje= "Functie van verstijver spacing, voor "+titel
     plt.title(titeltje)
     plt.legend(loc = "best", shadow = True, fontsize="small")
+    plt.grid()
     figure.savefig("./construeren/plaatproductie/"+titel+".png")
 
 def plot_vastekosten_robot(titel):
@@ -341,6 +346,7 @@ def plot_vastekosten_robot(titel):
     titeltje= "Functie van verstijver spacing, voor "+titel
     plt.title(titeltje)
     plt.legend(loc = "best", shadow = True, fontsize="small")
+    plt.grid()
     figure.savefig("./construeren/plaatproductie/"+titel+".png")
 
 def plot_personeel_robot(titel):
@@ -358,6 +364,7 @@ def plot_personeel_robot(titel):
     titeltje= "Functie van verstijver spacing, voor "+titel
     plt.title(titeltje)
     plt.legend(loc = "best", shadow = True, fontsize="small")
+    plt.grid()
     figure.savefig("./construeren/plaatproductie/"+titel+".png")
 
 
@@ -376,9 +383,47 @@ def bar_plot():
     titeltje= "Kosten in de vier scenarios"
     plt.title(titeltje)
     plt.legend(loc = "best", shadow = True, fontsize="small")
-    figure.savefig("./construeren/plaatproductie/barplot voor onze waardes.png")
+    plt.grid()
+    figure.savefig("./construeren/plaatproductie/barplot.png")
+
+def optel_plot(titel):
+    figure = plt.figure(figsize=(12,10))
+    ax = plt.subplot(111)
+    plt.plot(ss,k_h_4_tot, c="green"     ,label="$totaal \quad s_g = 4m$")
+    plt.plot(ss,k_h_4_mat, c="purple"     ,label="$materiaal \quad s_g = 4m$")
+    plt.plot(ss,k_h_4_per, c="red"     ,label="$personeel \quad s_g = 4m$")
+    plt.plot(ss,k_h_4_vast, c="orange"     ,label="$vast \quad s_g = 4m$")
+    plt.plot(ss,k_h_3_tot, c="green" ,linestyle="dashed"    ,label="$totaal \quad s_g = 3m$")
+    plt.plot(ss,k_h_3_mat, c="purple"  ,linestyle="dashed"   ,label="$materiaal \quad s_g = 3m$")
+    plt.plot(ss,k_h_3_per, c="red"   ,linestyle="dashed"  ,label="$personeel \quad s_g = 3m$")
+    plt.plot(ss,k_h_3_vast, c="orange"   ,linestyle="dotted"  ,label="$vast \quad s_g = 3m$")
+    plt.plot(ss,k_h_2_tot, c="green" ,linestyle="dotted"    ,label="$totaal \quad s_g = 2m$")
+    plt.plot(ss,k_h_2_mat, c="purple" ,linestyle="dotted"    ,label="$materiaal \quad s_g = 2m$")
+    plt.plot(ss,k_h_2_per, c="red"   ,linestyle="dotted"  ,label="$personeel \quad s_g = 2m$")
+    plt.plot(ss,k_h_2_vast, c="orange"   ,linestyle="dotted"  ,label="$vast \quad s_g = 2m$")
+    plt.xlabel("verstijver spacing [m]")
+    plt.ylabel("kosten [euro]")
+#    plt.ylim(0,20E6)
+    plt.ticklabel_format(style='sci', axis='y', scilimits=(6,6))
+    titeltje= "Functie van verstijver spacing, voor Kosen in een "+titel
+    plt.title(titeltje)
+    plt.grid()
+    
+        # Shrink current axis's height by 10% on the bottom
+    box = ax.get_position()
+    ax.set_position([box.x0, box.y0 + box.height * 0.1,
+                        box.width, box.height * 0.9])
+
+        # Put a legend below current axis
+    ax.legend(loc='upper center', bbox_to_anchor=(0.5, -0.1),
+                fancybox=True, shadow=True, ncol=3)
+    figure.savefig("./construeren/plaatproductie/"+titel+".png")
+
+
+optel_plot("optelplot")
 
 bar_plot()
+
 plot_vastekosten("vastekosten hand")
 
 plot_totaal("totale kosten hand")

@@ -3,7 +3,7 @@ import numpy as np
 import math as m
 import scipy
 
-ss = np.linspace(0.3,1.0,701)
+ss = np.arange(0.3,1.001,0.05)
 groepsnummer = 2
 station  = 5
 uren = 8

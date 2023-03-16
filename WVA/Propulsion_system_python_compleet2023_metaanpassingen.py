@@ -136,6 +136,10 @@ J = np.zeros(tmax)                # Advance ratio [-]
 start = time.perf_counter() 
  
 for k in range(tmax-1):
+    if X_parms[k+1] <= 0.2:
+        X_parms[k+1] = 0.2
+    elif X_parms[k+1] >= 1.0:
+        X_parms[k+1] = 1.0 
     # advance ratio
     J[k+1] = ((v_a[k] / n_p[k]) / D_p)
     # Thrust and torque
