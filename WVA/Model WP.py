@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import matplotlib as cm
 
 import Propulsion_system_python_compleet2023_metaanpassingen as model
-import Propulsion_system_python_compleet2023 as orgineel
+#import Propulsion_system_python_compleet2023 as orgineel
 
 
 np.errstate(divide = 'ignore') 
@@ -106,8 +106,8 @@ def plot(var,):
 
 np.savetxt("tabel.csv", table_trans, delimiter=",",fmt='%10.3f')
 
-R_orgineel = orgineel.R
-v_orgineel = orgineel.v_s
+#R_orgineel = orgineel.R
+#v_orgineel = orgineel.v_s
 
 R_aangepast = model.R
 v_aangepast = model.v_s
@@ -126,7 +126,7 @@ def plot_R_v(titel):
         plt.plot(v_s_vb,R_ts_vb,linestyle="dashed",marker=".",label="totaleweerstand")
         plt.plot(v_s_vb,R_fs_vb,linestyle="dashed",marker=".",label="wrijvingsweerstand")
         plt.plot(v_s_vb,R_rs_vb,linestyle="dashed",marker=".",label="restweerstand")
-        plt.plot(v_orgineel,R_orgineel,c="blue",label="model waarden, orgineel")
+#        plt.plot(v_orgineel,R_orgineel,c="blue",label="model waarden, orgineel")
         plt.plot(v_aangepast,R_aangepast,c="orange",label="model waarden, nieuwe polynoom")
         plt.ticklabel_format(style='sci', axis='y', scilimits=(0,0))
         titelfig= "./Plots/"+titel+".png"
@@ -147,4 +147,89 @@ R_v = np.array([R_ts_vb,v_s_vb])
 R_v = R_v.T
 np.savetxt("tabel R,v.csv", R_v, delimiter=",",fmt='%10.3f')
 
-plot_R_v("scheepsweerstand met aangepast model")
+#plot_R_v("scheepsweerstand met aangepast model")
+
+
+
+P_theoretisch = model.P_E
+W_loss= 711.1+1659.3*(model.n_e/(900/60))
+X = model.ov_X_set
+Q_f= X * model.m_f_nom * model.LHV
+
+eta_comb =np.zeros(len(P_theoretisch))
+eta_td =np.zeros(len(P_theoretisch))
+eta_q =np.zeros(len(P_theoretisch))
+eta_tot =np.zeros(len(P_theoretisch))
+eta_m =np.zeros(len(P_theoretisch))
+Q_in =np.zeros(len(P_theoretisch))
+Q_loss =np.zeros(len(P_theoretisch))
+P_i =np.zeros(len(P_theoretisch)) 
+W_i =np.zeros(len(P_theoretisch)) 
+W_e =np.zeros(len(P_theoretisch)) 
+
+for k in range(len(P_theoretisch)):
+        Q_loss[k]= 1908.8 + 7635.2*(X[k])
+        eta_comb[k] = 1
+        eta_td[k] = 0.52
+        eta_q[k] =(Q_f[k]-Q_loss[k])/Q_f[k]
+        W_i[k] = Q_f[k]*eta_comb[k]*eta_td[k]*eta_q[k]
+        Q_in[k]=  W_i[k]/eta_td[k]
+        P_i[k] = (W_i[k]*model.n_e[k]*model.i)/model.k
+
+
+
+        eta_m[k] =  (W_i[k]-W_loss[k])/W_i[k]
+        eta_e = eta_comb*eta_m*eta_q*eta_td
+        
+
+
+def plot_P_v(titel):
+        figure = plt.figure(figsize=(12,10))
+        ax = plt.subplot(111)
+        plt.ylabel(r"$P_E \; [N]$")
+        plt.xlabel(r"$t \; [s]$")
+        plt.title(titel)
+        plt.plot(model.mytime,model.P_E,label="Vermogen")
+        plt.ticklabel_format(style='sci', axis='y', scilimits=(0,0))
+        titelfig= "./Plots/"+titel+".png"
+        plt.grid()
+        
+        # Shrink current axis's height by 10% on the bottom
+        box = ax.get_position()
+        ax.set_position([box.x0, box.y0 + box.height * 0.1,
+                        box.width, box.height * 0.9])
+
+        # Put a legend below current axis
+        ax.legend(loc='upper center', bbox_to_anchor=(0.5, -0.1),
+                fancybox=True, shadow=True, ncol=3)
+
+        plt.savefig(titelfig)
+
+def eta_P(titel):
+        figure = plt.figure(figsize=(12,10))
+        ax = plt.subplot(111)
+        plt.ylabel(r"$\eta \; [-]$")
+        plt.xlabel(r"$P_e \; [kW]$")
+        plt.title(titel)
+        plt.plot(P_theoretisch[400:],eta_e[400:],label="$\eta_{totaal}$")
+        plt.plot(P_theoretisch[400:],eta_td[400:],  linestyle="dashed",label="$\eta_{td}$")
+        plt.plot(P_theoretisch[400:],eta_m[400:],   linestyle="dashed",label="$\eta_{m}$")
+        plt.plot(P_theoretisch[400:],eta_q[400:],   linestyle="dashed",label="$\eta_{q}$")
+        plt.plot(P_theoretisch[400:],eta_comb[400:],linestyle="dashed",label="$\eta_{comb}$")
+        plt.ticklabel_format(style='sci', axis='y', scilimits=(0,0))
+        titelfig= "./Plots/"+titel+".png"
+        plt.grid()
+        
+        # Shrink current axis's height by 10% on the bottom
+        box = ax.get_position()
+        ax.set_position([box.x0, box.y0 + box.height * 0.1,
+                        box.width, box.height * 0.9])
+
+        # Put a legend below current axis
+        ax.legend(loc='upper center', bbox_to_anchor=(0.5, -0.1),
+                fancybox=True, shadow=True, ncol=3)
+
+        plt.savefig(titelfig)
+
+plot_P_v("P_e over t")
+eta_P("eta als functie van P_e")

@@ -39,7 +39,7 @@ print('water properties loaded')
 # ship data
 m_ship = 358000         # ship mass [kg]
 c1 = 1500       
-v_s0 = 0        # resistance coefficient c1 in R = c1*vs^2
+v_s0 = 0       # resistance coefficient c1 in R = c1*vs^2
 #v_s0 = 6.5430           # ship design speed [m/s]
 t = 0.1600              # thrust deduction factor[-]
 w = 0.2000              # wake factor [-]
@@ -73,9 +73,9 @@ print('gearbox data loaded')
 
 # initial values
 in_p = 3.2830           # initial rpm
-iv_t_control = np.array([0,tmax])
-X_parms = np.array([0,1])   # % maximum fuelrack
-Y_parms = np.array([1, 1])               # disturbance factor
+iv_t_control = np.linspace(0,tmax-1,2000)
+X_parms = np.linspace(0.2,1.0,2000)   # % maximum fuelrack
+Y_parms = np.ones(2000)               # disturbance factor
 
 # simulation control parameters
 xvals = np.linspace(0, tmax-1, tmax)
@@ -113,6 +113,8 @@ Y = ov_Y_set[0]
 R[0] = R_schip(v_s0, Y)
 # Acceleration ship [m/s^2]
 sum_a = np.zeros(tmax)
+
+
 # Acceleration propellor[1/s^2]
 sum_dnpdt = np.zeros(tmax)
 m_flux_f = np.zeros(tmax)
@@ -131,15 +133,16 @@ P_T = np.zeros(tmax)              # Thrust power [kW]
 P_E = np.zeros(tmax)              # Engine power [kW]
 J = np.zeros(tmax)                # Advance ratio [-]
 
+P_E[0] = R[0]*v_s0
 
 # ------------- Run simulation -----------------------------------------------
 start = time.perf_counter() 
  
 for k in range(tmax-1):
-    if X_parms[k+1] <= 0.2:
-        X_parms[k+1] = 0.2
-    elif X_parms[k+1] >= 1.0:
-        X_parms[k+1] = 1.0 
+    #if X_parms[k+1] <= 0.2:
+    #    X_parms[k+1] = 0.2
+    #elif X_parms[k+1] >= 1.0:
+    #    X_parms[k+1] = 1.0 
     # advance ratio
     J[k+1] = ((v_a[k] / n_p[k]) / D_p)
     # Thrust and torque
@@ -187,7 +190,6 @@ for k in range(tmax-1):
 
 # EU just to be sure
 v_s[0]=v_s0
-v_s[1]=v_s0
 # -------------- Plot Figure -------------------------------------------------
 
 # create figure with four subplots
