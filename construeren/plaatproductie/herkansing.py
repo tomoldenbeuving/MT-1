@@ -68,19 +68,20 @@ class totaal():
         materiaal = aantal_jaar*m_totaal
         
 
-        x = nplaat-1 + 2
-        y = Llas_plaat/14400
-        z1 = (Llas_vrang_verti/1.2 +(Llas_vrang_hori+Llas_zaathout+Llas_spant)/2)
-        z2 = ((7.8*5**2)/2000)
-        z = 1/0.35*(z1*z2)
-        x1 = (nspant)
-        y1 = 4*(nvrang+nzaathout)
+        ndraaien = 2
+        Tphechten = nplaat-1
+        Tplassen = Llas_plaat/14400
+        Tzgslassen = (Llas_vrang_verti/1.2 +(Llas_vrang_hori+Llas_zaathout+Llas_spant)/2)*((7.8*5**2)/2000)/0.35
+        Tshechten = 0.5*(nspant)
+        Tzghechten = 4*(nvrang+nzaathout)
+        Tdraaien = ndraaien*2
 
 
-        urenpplaat = x + y + z +x1+ y1
+        urenpplaat = Tphechten + Tplassen+ Tzgslassen+2*Tshechten+2*Tzghechten+2*Tdraaien
+        productieuren = Tphechten + Tplassen+ Tzgslassen+Tshechten+Tzghechten+Tdraaien
         personeel = aantal_jaar*50* urenpplaat
 
-        nplek = np.int32((urenpplaat*aantal_jaar)/2000)
+        nplek = np.int32((productieuren*aantal_jaar)/2000)
         loods = A*nplek
 
         vastekosten = 90*loods
@@ -118,11 +119,20 @@ class totaal():
         m_totaal = m_plaat+m_z+m_s+m_g
         materiaal = aantal_jaar*m_totaal
 
-        urenpplaat = nplaat-1 + 2 + Llas_plaat/14400 + 1/0.35*((Llas_vrang_verti/1.2 +(Llas_vrang_hori+Llas_zaathout+Llas_spant)/2)*(7.8*5**2/2000) )+(nspant)+8*(nvrang+nzaathout)
+        ndraaien = 2
+        Tphechten = nplaat-1
+        Tplassen = Llas_plaat/14400
+        Tzgslassen = 1/0.35*(Llas_vrang_verti/1.2 +(Llas_vrang_hori+Llas_zaathout+Llas_spant)/2)*((7.8*5**2)/2000)
+        Tshechten = 0.5*(nspant)
+        Tzghechten = 4*(nvrang+nzaathout)
+        Tdraaien = ndraaien*2
 
+
+        urenpplaat = Tphechten + Tplassen+ Tzgslassen+2*Tshechten+4*Tzghechten+2*Tdraaien
+        productieuren = Tphechten + Tplassen+ Tzgslassen+Tshechten+Tzghechten+Tdraaien
         personeel = aantal_jaar*50*urenpplaat
 
-        nplek = np.int32((urenpplaat*aantal_jaar)/2000)
+        nplek = np.int32((productieuren*aantal_jaar)/2000)
         loods = 2*A*nplek
 
         vastekosten = 90*loods
@@ -214,7 +224,7 @@ class totaal():
                 urenpplaat[i] = loc4en5[i]
 
         personeel = aantal_jaar*90*urenpplaat
-        loods = 1500
+        loods = 1200
         vastekosten = 70*loods +300000*10*ss/ss
 
         totaal = materiaal + personeel + vastekosten 
