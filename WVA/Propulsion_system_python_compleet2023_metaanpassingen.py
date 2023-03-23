@@ -167,10 +167,10 @@ for k in range(tmax-1):
                   n_p[k] ** 2) * rho_sw * D_p ** 4)
     M_prop[k] = (((((J[k+1] * K_Q_a) + K_Q_b) *
                   n_p[k] ** 2) * rho_sw * D_p ** 5) / eta_R)
-    KT[0]=  J[0] * K_T_a + K_T_b
-    KQ[0]= J[0] * K_Q_a + K_Q_b
-    KT[k+1] = J[k+1] * K_T_a + K_T_b
-    KQ[k+1] = J[k+1] * K_Q_a + K_Q_b
+    KT[0] = -0.16026829*J[0]**2 + -0.28308796*J[0]  +0.27711417
+    KQ[0] = -0.19249704*J[0]**2 + -0.19043507*J[0]+  0.28027716
+    KT[k+1] = -0.16026829*J[k+1]**2 + -0.28308796*J[k+1]  +0.27711417
+    KQ[k+1] = -0.19249704*J[k+1]**2 + -0.19043507*J[k+1]+  0.28027716
     P_O[k+1] = ((((J[k+1] * K_Q_a) + K_Q_b) *
                 n_p[k] ** 2) * rho_sw * D_p ** 5) * n_p[k] * 2 * math.pi
     P_p[k+1] = M_prop[k] * n_p[k] * 2 * math.pi
@@ -276,3 +276,6 @@ print('run time:',time.perf_counter()-start,'seconden')
 
 np.savetxt("R_aangepast.csv", R, delimiter=",",fmt='%10.3f')
 np.savetxt("v_aangepast.csv", v_s, delimiter=",",fmt='%10.3f')
+
+
+

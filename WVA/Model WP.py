@@ -184,26 +184,27 @@ for k in range(len(P_theoretisch)):
 
 
 def plot_P_v(titel):
-        figure = plt.figure(figsize=(12,10))
-        ax = plt.subplot(111)
-        plt.ylabel(r"$P_E \; [N]$")
-        plt.xlabel(r"$t \; [s]$")
-        plt.title(titel)
-        plt.plot(model.mytime,model.P_E,label="Vermogen")
-        plt.ticklabel_format(style='sci', axis='y', scilimits=(0,0))
+        fig, (ax1, ax2) = plt.subplots(nrows=2, sharex=True, gridspec_kw={'height_ratios': [3, 1]},figsize=(12,10))
+        ax1.set_ylabel(r"$P_E \; [N]$")
+        ax1.set_xlabel(r"$t \; [s]$")
+        ax1.plot(model.mytime,model.P_E,label="Vermogen")
+        ax1.ticklabel_format(style='sci', axis='y', scilimits=(0,0))
+        ax1.grid()
+        ax2.plot(model.mytime,model.ov_Y_set,linestyle="dashed",label="Y parms")
+        ax2.plot(model.mytime,model.ov_X_set,linestyle="dashed",label="X parms")
+        ax2.ticklabel_format(style='sci', axis='y', scilimits=(0,0))
+        ax2.grid()
         titelfig= "./Plots/"+titel+".png"
-        plt.grid()
-        
-        # Shrink current axis's height by 10% on the bottom
-        box = ax.get_position()
-        ax.set_position([box.x0, box.y0 + box.height * 0.1,
-                        box.width, box.height * 0.9])
+        fig.savefig(titelfig)
+                
+'''
+box = ax.get_position()
+ax.set_position([box.x0, box.y0 + box.height * 0.1,
+                box.width, box.height * 0.9])
+ax.legend(loc='upper center', bbox_to_anchor=(0.5, -0.1),
+        fancybox=True, shadow=True, ncol=3)
 
-        # Put a legend below current axis
-        ax.legend(loc='upper center', bbox_to_anchor=(0.5, -0.1),
-                fancybox=True, shadow=True, ncol=3)
-
-        plt.savefig(titelfig)
+ax = plt.subplot(111)'''
 
 def eta_P(titel):
         figure = plt.figure(figsize=(12,10))
@@ -232,4 +233,3 @@ def eta_P(titel):
         plt.savefig(titelfig)
 
 plot_P_v("P_e over t")
-eta_P("eta als functie van P_e")
