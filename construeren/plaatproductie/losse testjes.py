@@ -67,6 +67,7 @@ class totaal():
         m_totaal = m_plaat+m_z+m_s+m_g
         materiaal = aantal_jaar*m_totaal
         
+
         ndraaien = 2
         Tphechten = nplaat-1
         Tplassen = Llas_plaat/14400
@@ -77,7 +78,7 @@ class totaal():
 
 
         urenpplaat = Tphechten + Tplassen+ Tzgslassen+2*Tshechten+2*Tzghechten+2*Tdraaien
-        productieuren = Tphechten + Tplassen+ Tzgslassen+Tshechten+Tzghechten+Tdraaien
+        productieuren = Tphechten + Tplassen+ Tzgslassen/2+Tshechten+Tzghechten+Tdraaien
         personeel = aantal_jaar*50* urenpplaat
 
         nplek = np.int32((productieuren*aantal_jaar)/2000)
@@ -121,15 +122,15 @@ class totaal():
         ndraaien = 2
         Tphechten = nplaat-1
         Tplassen = Llas_plaat/14400
-        Tzgslassen = 1/0.35*(Llas_vrang_verti/1.2 +(Llas_vrang_hori+Llas_zaathout+Llas_spant)/2)*((7.8*5**2)/2000)
+        Tzgslassen = (Llas_vrang_verti/1.2 +(Llas_vrang_hori+Llas_zaathout+Llas_spant)/2)*((7.8*5**2)/2000)/0.35
         Tshechten = 0.5*(nspant)
         Tzghechten = 4*(nvrang+nzaathout)
         Tdraaien = ndraaien*2
 
 
         urenpplaat = Tphechten + Tplassen+ Tzgslassen+2*Tshechten+4*Tzghechten+2*Tdraaien
-        productieuren = Tphechten + Tplassen+ Tzgslassen+Tshechten+Tzghechten+Tdraaien
-        personeel = aantal_jaar*50*urenpplaat
+        productieuren = Tphechten + Tplassen+ Tzgslassen/2+Tshechten+Tzghechten+2*Tdraaien
+        personeel = aantal_jaar*50* urenpplaat
 
         nplek = np.int32((productieuren*aantal_jaar)/2000)
         loods = 2*A*nplek
@@ -179,7 +180,7 @@ class totaal():
                 urenpplaat[i] = loc4en5[i]
         personeel = aantal_jaar*90*urenpplaat
         loods = 1500
-        vastekosten = 70*loods +275000*10*ss/ss
+        vastekosten = 70*loods +275000*ss/ss
         totaal = materiaal + personeel + vastekosten 
         return totaal, materiaal, personeel, vastekosten,urenpplaat
 
@@ -224,7 +225,7 @@ class totaal():
 
         personeel = aantal_jaar*90*urenpplaat
         loods = 1200
-        vastekosten = 70*loods +300000*10*ss/ss
+        vastekosten = 70*loods +300000*ss/ss
 
         totaal = materiaal + personeel + vastekosten 
         return totaal, materiaal, personeel, vastekosten,urenpplaat
@@ -239,14 +240,36 @@ k_r_4_tot, k_r_4_mat,k_r_4_per,k_r_4_vast,k_r_man = totaal.klein_robot(4)
 g_r_4_tot, g_r_4_mat,g_r_4_per,g_r_4_vast,g_r_man = totaal.groot_robot(4)
 
 
-'''print([["scenario","manuren"],
+print([["scenario","manuren"],
        ["hand klein",k_h_man],
        ["hand groot",g_h_man],
        ["robot klein",k_r_man],
-       ["robot groot",g_r_man]])'''
+       ["robot groot",g_r_man]])
 
 print([["scenario","totaal","materiaal","personeel","vast"],
        ["klein hand",k_h_4_tot, k_h_4_mat,k_h_4_per,k_h_4_vast],
        ["groot hand",g_h_4_tot, g_h_4_mat,g_h_4_per,g_h_4_vast],
        ["klein robot",k_r_4_tot, k_r_4_mat,k_r_4_per,k_r_4_vast],
        ["groot robot",k_r_4_tot, k_r_4_mat,k_r_4_per,k_r_4_vast]])
+
+
+def bar_plot():
+    materiaal_tup = (min(g_h_4_mat),min(g_h_4_mat),min(g_h_4_mat),min(g_h_4_mat))
+    personeel_tup = (min(k_h_4_per),min(g_h_4_per),min(k_r_4_per),min(g_r_4_per))
+    vastekosten_tup = (min(k_h_4_vast),min(g_h_4_vast),min(k_r_4_vast),min(g_r_4_vast))
+    figure = plt.figure(figsize=(10,8))
+    ind = np.arange(4)
+    plt.bar(ind, np.array(materiaal_tup), 0.35,    color="red", label="materiaal")
+    plt.bar(ind, np.array(personeel_tup),  0.35,   bottom=np.array(materiaal_tup),   color="green", label="personeel")
+    plt.bar(ind, np.array(vastekosten_tup), 0.35,  bottom=np.array(personeel_tup)+np.array(materiaal_tup),    color="blue", label="vastekosten")
+    plt.xticks(ind,["klein, hand","groot, hand","klein, robot","groot, robot"])
+    plt.ticklabel_format(style='sci', axis='y', scilimits=(6,6))
+    plt.ylabel("kosten [euro]")
+    titeltje= "Kosten in de vier scenarios"
+    plt.title(titeltje)
+    plt.legend(loc = "best", shadow = True, fontsize="small")
+    plt.grid()
+    figure.savefig("./construeren/plaatproductie/barplot.png")
+
+
+bar_plot()
