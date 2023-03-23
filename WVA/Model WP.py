@@ -190,21 +190,23 @@ def plot_P_v(titel):
         ax1.plot(model.mytime,model.P_E,label="Vermogen")
         ax1.ticklabel_format(style='sci', axis='y', scilimits=(0,0))
         ax1.grid()
+
         ax2.plot(model.mytime,model.ov_Y_set,linestyle="dashed",label="Y parms")
         ax2.plot(model.mytime,model.ov_X_set,linestyle="dashed",label="X parms")
         ax2.ticklabel_format(style='sci', axis='y', scilimits=(0,0))
         ax2.grid()
-        titelfig= "./Plots/"+titel+".png"
-        fig.savefig(titelfig)
-                
-'''
-box = ax.get_position()
-ax.set_position([box.x0, box.y0 + box.height * 0.1,
-                box.width, box.height * 0.9])
-ax.legend(loc='upper center', bbox_to_anchor=(0.5, -0.1),
-        fancybox=True, shadow=True, ncol=3)
 
-ax = plt.subplot(111)'''
+        # Create a single legend object
+        handles, labels = [], []
+        for ax in fig.axes:
+                for h, l in zip(*ax.get_legend_handles_labels()):
+                        handles.append(h)
+                        labels.append(l)
+        legend = fig.legend(handles, labels, loc='upper center', bbox_to_anchor=(0.5, 0), ncol=3)
+
+        titelfig= "./Plots/"+titel+".png"
+        fig.savefig(titelfig, bbox_extra_artists=(legend,), bbox_inches='tight')
+
 
 def eta_P(titel):
         figure = plt.figure(figsize=(12,10))
@@ -231,5 +233,3 @@ def eta_P(titel):
                 fancybox=True, shadow=True, ncol=3)
 
         plt.savefig(titelfig)
-
-plot_P_v("P_e over t")
