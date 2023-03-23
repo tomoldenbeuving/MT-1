@@ -73,9 +73,10 @@ print('gearbox data loaded')
 
 # initial values
 in_p = 3.2830           # initial rpm
-iv_t_control = np.linspace(0,tmax-1,2000)
-X_parms = np.linspace(0.2,1.0,2000)   # % maximum fuelrack
-Y_parms = np.ones(2000)               # disturbance factor
+iv_t_control = np.linspace(0,tmax-1,70)
+X_parms = np.linspace(0.2,1.0,70)   # % maximum fuelrack
+Y_parms = np.ones(70)               # disturbance factor
+
 
 # simulation control parameters
 xvals = np.linspace(0, tmax-1, tmax)
@@ -132,17 +133,33 @@ P_b = np.zeros(tmax)              # Engine brake power [kW]
 P_T = np.zeros(tmax)              # Thrust power [kW]
 P_E = np.zeros(tmax)              # Engine power [kW]
 J = np.zeros(tmax)                # Advance ratio [-]
+W_loss= np.zeros(tmax)
+W_i = np.zeros(tmax)
+X= np.zeros(tmax)
+Q_f= np.zeros(tmax)
+W_e=np.zeros(tmax)
+eta_i=np.zeros(tmax)
+eta_m=np.zeros(tmax)
+eta_q=np.zeros(tmax)
+
+X[0]= ov_X_set[0]
+Q_f[0]= X[0] * m_f_nom * LHV
+W_loss[0]= 711.1 +1659.3*(n_e[0]/15)
+Q_f[0] = X[0] * m_f_nom * LHV
+
+W_e[0]= (Q_f[0]) * eta_i[0] * eta_m[0]
+eta_q[0]=(Q_f[0]-(1908.8 + 7635.2*(X[0]/0.85)))/Q_f[0]
+
 
 P_E[0] = R[0]*v_s0
+
+
+
 
 # ------------- Run simulation -----------------------------------------------
 start = time.perf_counter() 
  
 for k in range(tmax-1):
-    #if X_parms[k+1] <= 0.2:
-    #    X_parms[k+1] = 0.2
-    #elif X_parms[k+1] >= 1.0:
-    #    X_parms[k+1] = 1.0 
     # advance ratio
     J[k+1] = ((v_a[k] / n_p[k]) / D_p)
     # Thrust and torque
@@ -150,6 +167,8 @@ for k in range(tmax-1):
                   n_p[k] ** 2) * rho_sw * D_p ** 4)
     M_prop[k] = (((((J[k+1] * K_Q_a) + K_Q_b) *
                   n_p[k] ** 2) * rho_sw * D_p ** 5) / eta_R)
+    KT[0]=  J[0] * K_T_a + K_T_b
+    KQ[0]= J[0] * K_Q_a + K_Q_b
     KT[k+1] = J[k+1] * K_T_a + K_T_b
     KQ[k+1] = J[k+1] * K_Q_a + K_Q_b
     P_O[k+1] = ((((J[k+1] * K_Q_a) + K_Q_b) *
@@ -160,36 +179,69 @@ for k in range(tmax-1):
     v_s[k+1]  = (np.trapz(sum_a[k:k+2], dx=0.01)) + v_s[k]
     #v_s[k+1] = v_s_new
     Rsp[k+1] = R[k] / (1-t)
+    
+    
     # Traveled distance
     s[k+1] = s[k] + v_s[k+1] * dt
+    
+    
     # Advance velocity
     v_a[k+1] = v_s[k+1] * (1 - w)
     P_T[k+1] = F_prop[k] * v_a[k+1]
+    
+    
     # Resistance
     Y = ov_Y_set[k]
     R[k+1] = R_schip( v_s[k+1], Y)
-    P_E[k+1] = v_s[k+1] * R[k+1]
+    P_E[0] = v_s[0]*R[0]
+    P_E[k+1] = v_s[k+1]*R[k+1]
+    
+    
     # Calculate acceleration from resulting force --> propellor np
     sum_dnpdt[k+1] = ((M_b[k] * i_gb * eta_TRM) - M_prop[k])/(2*math.pi*I_tot)
     n_p[k+1] = np.trapz(sum_dnpdt[k:k+2], dx=0.01) + n_p[k]
+    
+    
     # Engine speed
     n_e[k+1] = n_p[k+1] * i_gb
+    
+    
     # Fuel rack
-    X = ov_X_set[k]
-    m_flux_f[k+1] = (X * m_f_nom * n_e[k+1]) * i / k_es
+    X[k+1] = ov_X_set[k+1]
+    m_flux_f[0] = (X[0] * m_f_nom * n_e[0]) * i / k_es
+    m_flux_f[k+1] = (X[k+1] * m_f_nom * n_e[k+1]) * i / k_es
     # Fuel consumption
     out_fc[k+1] =  np.trapz(m_flux_f[:k+2], dx=0.01)+out_fc[0]
-    Q_f = X * m_f_nom * LHV
-    W_e = Q_f * eta_e
+   
+    
+    Q_f[k+1] = X[k+1] * m_f_nom * LHV
+    etaTD = 0.52
+    etaComb = 1
+    eta_q[k+1] = (Q_f[k+1]-(1908.8 + 7635.2*(X[k+1])))/Q_f[k+1]
+    eta_q[0] = (Q_f[0]-(1908.8 + 7635.2*(X[0])))/Q_f[0]
+    eta_i[0]= etaComb*eta_q[0]*etaTD
+    eta_i[k+1] = etaComb*eta_q[k+1]*etaTD
+    W_i[k+1] = Q_f[k+1]*eta_i[k+1]
+    W_i[0] = Q_f[0]*eta_i[0]
+    W_loss[k+1] = 711.1 +1659.3*(n_e[k+1]/15)
+    eta_m[0]= (W_i[0]-(W_loss[0]))/W_i[0]
+    eta_m[k+1] = (W_i[k+1]-(W_loss[k+1]))/W_i[k+1]
+    W_e[0]= (Q_f[0]) * eta_i[0] * eta_m[0]
+    W_e[k+1] = (Q_f[k+1]) * eta_i[k+1] * eta_m[k+1]
     # Brake power
-    P_b[k+1] = (W_e * n_e[k+1] * i) / k_es
+    P_b[k+1] = (W_e[k+1] * n_e[k+1]*i) / k_es
     # Engine torque
     M_b[k+1] = P_b[k+1] / (2 * math.pi * n_e[k+1])
+    M_Trm[0] = M_b[0] * i_gb * eta_TRM
     M_Trm[k+1] = M_b[k+1] * i_gb * eta_TRM
 
 
 # EU just to be sure
 v_s[0]=v_s0
+
+
+eta_q = np.delete(eta_q , [0,10])
+eta_m = np.delete(eta_m , [0,10])
 # -------------- Plot Figure -------------------------------------------------
 
 # create figure with four subplots
