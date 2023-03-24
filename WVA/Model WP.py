@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import matplotlib as cm
 
 import Propulsion_system_python_compleet2023_metaanpassingen as model
-#import Propulsion_system_python_compleet2023 as orgineel
+import Propulsion_system_python_compleet2023 as orgineel
 
 
 np.errstate(divide = 'ignore') 
@@ -106,8 +106,8 @@ def plot(var,):
 
 np.savetxt("tabel.csv", table_trans, delimiter=",",fmt='%10.3f')
 
-#R_orgineel = orgineel.R
-#v_orgineel = orgineel.v_s
+R_orgineel = orgineel.R
+v_orgineel = orgineel.v_s
 
 R_aangepast = model.R
 v_aangepast = model.v_s
@@ -118,15 +118,15 @@ f = np.poly1d(fit)
 x = np.linspace(0,7,100)
 
 def plot_R_v(titel):
-        figure = plt.figure(figsize=(10,6))
+        figure = plt.figure(figsize=(16,10))
         ax = plt.subplot(111)
         plt.ylabel(r"$R_s \; [N]$")
         plt.xlabel(r"$v_s \; [ms^{-1}]$")
-        plt.title(titel)
+        plt.title("Scheepweerstand $R_s$ over scheepssnelheid $v_s$")
         plt.plot(v_s_vb,R_ts_vb,linestyle="dashed",marker=".",label="totaleweerstand")
         plt.plot(v_s_vb,R_fs_vb,linestyle="dashed",marker=".",label="wrijvingsweerstand")
         plt.plot(v_s_vb,R_rs_vb,linestyle="dashed",marker=".",label="restweerstand")
-#        plt.plot(v_orgineel,R_orgineel,c="blue",label="model waarden, orgineel")
+        plt.plot(v_orgineel,R_orgineel,c="blue",label="model waarden, orgineel")
         plt.plot(v_aangepast,R_aangepast,c="orange",label="model waarden, nieuwe polynoom")
         plt.ticklabel_format(style='sci', axis='y', scilimits=(0,0))
         titelfig= "./Plots/"+titel+".png"
@@ -149,7 +149,7 @@ np.savetxt("tabel R,v.csv", R_v, delimiter=",",fmt='%10.3f')
 
 #plot_R_v("scheepsweerstand met aangepast model")
 
-
+plot_R_v("voor de pp")
 
 P_theoretisch = model.P_E
 W_loss= 711.1+1659.3*(model.n_e/(900/60))
