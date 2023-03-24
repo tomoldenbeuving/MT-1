@@ -209,7 +209,7 @@ def plot_P_v(titel):
 
 
 def eta_P(titel):
-        figure = plt.figure(figsize=(12,10))
+        figure = plt.figure(figsize=(16,10))
         ax = plt.subplot(111)
         plt.ylabel(r"$\eta \; [-]$")
         plt.xlabel(r"$P_e \; [kW]$")
@@ -233,3 +233,5 @@ def eta_P(titel):
                 fancybox=True, shadow=True, ncol=3)
 
         plt.savefig(titelfig)
+
+eta_P("eta als functie van P_e")
