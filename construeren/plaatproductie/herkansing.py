@@ -179,8 +179,14 @@ class totaal():
             if loc4en5[i] > loc3[i]:
                 urenpplaat[i] = loc4en5[i]
         personeel = aantal_jaar*90*urenpplaat
-        loods = 1500
-        vastekosten = 70*loods +275000*ss/ss
+        loods = 1200
+        nplekken = ((urenpplaat*aantal_jaar/3)/8400)
+        nplekkenint = np.ceil(nplekken)
+        bezettingsgraad = nplekken/nplekkenint*100
+        for k in range(len(nplekkenint)):
+            if nplekkenint[k]==0:
+                nplekkenint[k] =1
+        vastekosten = 70*loods +275000*nplekkenint*station
         totaal = materiaal + personeel + vastekosten 
         return totaal, materiaal, personeel, vastekosten
 
@@ -225,7 +231,13 @@ class totaal():
 
         personeel = aantal_jaar*90*urenpplaat
         loods = 1200
-        vastekosten = 70*loods +300000*ss/ss
+        nplekken = ((urenpplaat* aantal_jaar/3)/8400)
+        nplekkenint = np.ceil(nplekken)
+        bezettingsgraad = nplekken/nplekkenint*100
+        for k in range(len(nplekkenint)):
+            if nplekkenint[k]==0:
+                nplekkenint[k] =1
+        vastekosten = 70*loods +300000*nplekkenint*station
 
         totaal = materiaal + personeel + vastekosten 
         return totaal, materiaal, personeel, vastekosten
@@ -379,7 +391,7 @@ def plot_personeel_robot(titel):
 
 
 def bar_plot():
-    materiaal_tup = (min(g_h_4_mat),min(g_h_4_mat),min(g_h_4_mat),min(g_h_4_mat))
+    materiaal_tup = (min(k_h_4_mat),min(k_h_4_mat),min(k_h_4_mat),min(k_h_4_mat))
     personeel_tup = (min(k_h_4_per),min(g_h_4_per),min(k_r_4_per),min(g_r_4_per))
     vastekosten_tup = (min(k_h_4_vast),min(g_h_4_vast),min(k_r_4_vast),min(g_r_4_vast))
     figure = plt.figure(figsize=(10,8))
@@ -392,6 +404,7 @@ def bar_plot():
     plt.ylabel("kosten [euro]")
     titeltje= "Kosten in de vier scenarios"
     plt.title(titeltje)
+    plt.ylim(4E6,)
     plt.legend(loc = "best", shadow = True, fontsize="small")
     plt.grid()
     figure.savefig("./construeren/plaatproductie/barplot.png")
@@ -406,7 +419,7 @@ def optel_plot(titel):
     plt.plot(ss,k_h_3_tot, c="green" ,linestyle="dashed"    ,label="$totaal \quad s_g = 3m$")
     plt.plot(ss,k_h_3_mat, c="purple"  ,linestyle="dashed"   ,label="$materiaal \quad s_g = 3m$")
     plt.plot(ss,k_h_3_per, c="red"   ,linestyle="dashed"  ,label="$personeel \quad s_g = 3m$")
-    plt.plot(ss,k_h_3_vast, c="orange"   ,linestyle="dotted"  ,label="$vast \quad s_g = 3m$")
+    plt.plot(ss,k_h_3_vast, c="orange"   ,linestyle="dashed"  ,label="$vast \quad s_g = 3m$")
     plt.plot(ss,k_h_2_tot, c="green" ,linestyle="dotted"    ,label="$totaal \quad s_g = 2m$")
     plt.plot(ss,k_h_2_mat, c="purple" ,linestyle="dotted"    ,label="$materiaal \quad s_g = 2m$")
     plt.plot(ss,k_h_2_per, c="red"   ,linestyle="dotted"  ,label="$personeel \quad s_g = 2m$")
@@ -415,7 +428,40 @@ def optel_plot(titel):
     plt.ylabel("kosten [euro]")
 #    plt.ylim(0,20E6)
     plt.ticklabel_format(style='sci', axis='y', scilimits=(6,6))
-    titeltje= "Functie van verstijver spacing, voor Kosen in een "+titel
+    titeltje= "Functie van verstijver spacing, voor Kosten in een "+titel
+    plt.title(titeltje)
+    plt.grid()
+    
+        # Shrink current axis's height by 10% on the bottom
+    box = ax.get_position()
+    ax.set_position([box.x0, box.y0 + box.height * 0.1,
+                        box.width, box.height * 0.9])
+
+        # Put a legend below current axis
+    ax.legend(loc='upper center', bbox_to_anchor=(0.5, -0.1),
+                fancybox=True, shadow=True, ncol=3)
+    figure.savefig("./construeren/plaatproductie/"+titel+".png")
+
+def optel_plot_robot(titel):
+    figure = plt.figure(figsize=(12,10))
+    ax = plt.subplot(111)
+    plt.plot(ss,k_r_4_tot, c="green"     ,label="$totaal \quad s_g = 4m$")
+    plt.plot(ss,k_r_4_mat, c="purple"     ,label="$materiaal \quad s_g = 4m$")
+    plt.plot(ss,k_r_4_per, c="red"     ,label="$personeel \quad s_g = 4m$")
+    plt.plot(ss,k_r_4_vast, c="orange"     ,label="$vast \quad s_g = 4m$")
+    plt.plot(ss,k_r_3_tot, c="green" ,linestyle="dashed"    ,label="$totaal \quad s_g = 3m$")
+    plt.plot(ss,k_r_3_mat, c="purple"  ,linestyle="dashed"   ,label="$materiaal \quad s_g = 3m$")
+    plt.plot(ss,k_r_3_per, c="red"   ,linestyle="dashed"  ,label="$personeel \quad s_g = 3m$")
+    plt.plot(ss,k_r_3_vast, c="orange"   ,linestyle="dashed"  ,label="$vast \quad s_g = 3m$")
+    plt.plot(ss,k_r_2_tot, c="green" ,linestyle="dotted"    ,label="$totaal \quad s_g = 2m$")
+    plt.plot(ss,k_r_2_mat, c="purple" ,linestyle="dotted"    ,label="$materiaal \quad s_g = 2m$")
+    plt.plot(ss,k_r_2_per, c="red"   ,linestyle="dotted"  ,label="$personeel \quad s_g = 2m$")
+    plt.plot(ss,k_r_2_vast, c="orange"   ,linestyle="dotted"  ,label="$vast \quad s_g = 2m$")
+    plt.xlabel("verstijver spacing [m]")
+    plt.ylabel("kosten [euro]")
+#    plt.ylim(0,20E6)
+    plt.ticklabel_format(style='sci', axis='y', scilimits=(6,6))
+    titeltje= "Functie van verstijver spacing, voor Kosten in een "+titel
     plt.title(titeltje)
     plt.grid()
     
@@ -430,6 +476,7 @@ def optel_plot(titel):
     figure.savefig("./construeren/plaatproductie/"+titel+".png")
 
 
+optel_plot_robot("optelplot robot")
 optel_plot("optelplot")
 
 bar_plot()

@@ -132,7 +132,7 @@ class totaal():
         productieuren = Tphechten + Tplassen+ Tzgslassen/2+Tshechten+Tzghechten+2*Tdraaien
         personeel = aantal_jaar*50* urenpplaat
 
-        nplek = np.int32((productieuren*aantal_jaar)/2000)
+        nplek = np.int32((productieuren* aantal_jaar)/2000)
         loods = 2*A*nplek
 
         vastekosten = 90*loods
@@ -179,8 +179,14 @@ class totaal():
             if loc4en5[i] > loc3[i]:
                 urenpplaat[i] = loc4en5[i]
         personeel = aantal_jaar*90*urenpplaat
-        loods = 1500
-        vastekosten = 70*loods +275000*ss/ss
+        loods = 1200
+        nplekken = ((urenpplaat*aantal_jaar/3)/8400)
+        nplekkenint = np.ceil(nplekken)
+        bezettingsgraad = nplekken/nplekkenint*100
+        for k in range(len(nplekkenint)):
+            if nplekkenint[k]==0:
+                nplekkenint[k] =1
+        vastekosten = 70*loods +275000*nplekkenint*station
         totaal = materiaal + personeel + vastekosten 
         return totaal, materiaal, personeel, vastekosten,urenpplaat
 
@@ -225,10 +231,17 @@ class totaal():
 
         personeel = aantal_jaar*90*urenpplaat
         loods = 1200
-        vastekosten = 70*loods +300000*ss/ss
+        nplekken = ((urenpplaat* aantal_jaar/3)/8400)
+        nplekkenint = np.ceil(nplekken)
+        bezettingsgraad = nplekken/nplekkenint*100
+        for k in range(len(nplekkenint)):
+            if nplekkenint[k]==0:
+                nplekkenint[k] =1
+        vastekosten = 70*loods +300000*nplekkenint*station
 
         totaal = materiaal + personeel + vastekosten 
         return totaal, materiaal, personeel, vastekosten,urenpplaat
+
 
 
 k_h_4_tot, k_h_4_mat,k_h_4_per,k_h_4_vast,k_h_man = totaal.klein_hand(4)
