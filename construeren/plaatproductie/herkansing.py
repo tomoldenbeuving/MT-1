@@ -50,7 +50,7 @@ class totaal():
         aantal_jaar = capaciteit/A 
         nplaat = Bp/bp
         nlas = nplaat -1
-        nspant = Bp/ss-nzaathout -1
+        nspant = Bp/ss-nzaathout +1
         nvrang = Lp/sg
         nkruising = nvrang*(nspant+nzaathout)
         Llas_plaat = nlas*Lp     
@@ -84,7 +84,7 @@ class totaal():
         nplek = np.int32((productieuren*aantal_jaar)/2000)
         loods = A*nplek
 
-        vastekosten = 90*loods
+        vastekosten = 80*loods
 
         totaal = materiaal + personeel + vastekosten 
         return totaal, materiaal, personeel, vastekosten
@@ -102,7 +102,7 @@ class totaal():
         aantal_jaar = capaciteit/(2*A) 
         nplaat = 2*Bp/bp
         nlas = nplaat -1
-        nspant = 2*Bp/ss-nzaathout -1
+        nspant = 2*Bp/ss-nzaathout +1
         nvrang = Lp/sg
         nkruising = nvrang*(nspant+nzaathout)
         Llas_plaat = nlas*Lp 
@@ -129,13 +129,13 @@ class totaal():
 
 
         urenpplaat = Tphechten + Tplassen+ Tzgslassen+2*Tshechten+4*Tzghechten+2*Tdraaien
-        productieuren = Tphechten + Tplassen+ Tzgslassen/2+Tshechten+Tzghechten+2*Tdraaien
+        productieuren = Tphechten + Tplassen+ Tzgslassen/5+Tshechten+Tzghechten+2*Tdraaien
         personeel = aantal_jaar*50* urenpplaat
 
         nplek = np.int32((productieuren*aantal_jaar)/2000)
         loods = 2*A*nplek
 
-        vastekosten = 90*loods
+        vastekosten = 80*loods
 
         totaal = materiaal + personeel + vastekosten 
         return totaal, materiaal, personeel, vastekosten
@@ -153,7 +153,7 @@ class totaal():
         aantal_jaar = capaciteit/A 
         nplaat = Bp/bp
         nlas = nplaat -1
-        nspant = Bp/ss-nzaathout -1
+        nspant = Bp/ss-nzaathout +1
         nvrang = Lp/sg
         nkruising = nvrang*(nspant+nzaathout)
         Llas_plaat = nlas*Lp 
@@ -178,7 +178,7 @@ class totaal():
                 urenpplaat[i] = loc3[i]
             if loc4en5[i] > loc3[i]:
                 urenpplaat[i] = loc4en5[i]
-        personeel = aantal_jaar*90*urenpplaat
+        personeel = aantal_jaar*90*urenpplaat*3/5
         loods = 1200
         nplekken = ((urenpplaat*aantal_jaar/3)/8400)
         nplekkenint = np.ceil(nplekken)
@@ -203,7 +203,7 @@ class totaal():
         aantal_jaar = capaciteit/(2*A) 
         nplaat = 2*Bp/bp
         nlas = nplaat -1
-        nspant = 2*Bp/ss-nzaathout -1
+        nspant = 2*Bp/ss-nzaathout +1
         nvrang = Lp/sg
         nkruising = nvrang*(nspant+nzaathout)
         Llas_plaat = nlas*Lp 
@@ -229,7 +229,7 @@ class totaal():
             if loc4en5[i] > loc3[i]:
                 urenpplaat[i] = loc4en5[i]
 
-        personeel = aantal_jaar*90*urenpplaat
+        personeel = aantal_jaar*90*urenpplaat*3/5
         loods = 1200
         nplekken = ((urenpplaat* aantal_jaar/3)/8400)
         nplekkenint = np.ceil(nplekken)

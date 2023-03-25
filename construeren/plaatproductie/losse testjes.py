@@ -50,7 +50,7 @@ class totaal():
         aantal_jaar = capaciteit/A 
         nplaat = Bp/bp
         nlas = nplaat -1
-        nspant = Bp/ss-nzaathout -1
+        nspant = Bp/ss-nzaathout +1
         nvrang = Lp/sg
         nkruising = nvrang*(nspant+nzaathout)
         Llas_plaat = nlas*Lp     
@@ -84,7 +84,7 @@ class totaal():
         nplek = np.int32((productieuren*aantal_jaar)/2000)
         loods = A*nplek
 
-        vastekosten = 90*loods
+        vastekosten = 80*loods
 
         totaal = materiaal + personeel + vastekosten 
         return totaal, materiaal, personeel, vastekosten,productieuren
@@ -102,7 +102,7 @@ class totaal():
         aantal_jaar = capaciteit/(2*A) 
         nplaat = 2*Bp/bp
         nlas = nplaat -1
-        nspant = 2*Bp/ss-nzaathout -1
+        nspant = 2*Bp/ss-nzaathout +1
         nvrang = Lp/sg
         nkruising = nvrang*(nspant+nzaathout)
         Llas_plaat = nlas*Lp 
@@ -129,13 +129,13 @@ class totaal():
 
 
         urenpplaat = Tphechten + Tplassen+ Tzgslassen+2*Tshechten+4*Tzghechten+2*Tdraaien
-        productieuren = Tphechten + Tplassen+ Tzgslassen/2+Tshechten+Tzghechten+2*Tdraaien
+        productieuren = Tphechten + Tplassen+ Tzgslassen/5+Tshechten+Tzghechten+2*Tdraaien
         personeel = aantal_jaar*50* urenpplaat
 
-        nplek = np.int32((productieuren* aantal_jaar)/2000)
+        nplek = np.int32((productieuren*aantal_jaar)/2000)
         loods = 2*A*nplek
 
-        vastekosten = 90*loods
+        vastekosten = 80*loods
 
         totaal = materiaal + personeel + vastekosten 
         return totaal, materiaal, personeel, vastekosten,productieuren
@@ -153,7 +153,7 @@ class totaal():
         aantal_jaar = capaciteit/A 
         nplaat = Bp/bp
         nlas = nplaat -1
-        nspant = Bp/ss-nzaathout -1
+        nspant = Bp/ss-nzaathout +1
         nvrang = Lp/sg
         nkruising = nvrang*(nspant+nzaathout)
         Llas_plaat = nlas*Lp 
@@ -178,7 +178,7 @@ class totaal():
                 urenpplaat[i] = loc3[i]
             if loc4en5[i] > loc3[i]:
                 urenpplaat[i] = loc4en5[i]
-        personeel = aantal_jaar*90*urenpplaat
+        personeel = aantal_jaar*90*urenpplaat*3/5
         loods = 1200
         nplekken = ((urenpplaat*aantal_jaar/3)/8400)
         nplekkenint = np.ceil(nplekken)
@@ -188,7 +188,7 @@ class totaal():
                 nplekkenint[k] =1
         vastekosten = 70*loods +275000*nplekkenint*station
         totaal = materiaal + personeel + vastekosten 
-        return totaal, materiaal, personeel, vastekosten,urenpplaat
+        return totaal, materiaal, personeel, vastekosten,urenpplaat,bezettingsgraad
 
     def groot_robot(sg):
         hspant = (6*0.5/2+300.5/2)*((p*ss*sg*2*Ks)/(12*sigma_y*tws))**0.5
@@ -203,7 +203,7 @@ class totaal():
         aantal_jaar = capaciteit/(2*A) 
         nplaat = 2*Bp/bp
         nlas = nplaat -1
-        nspant = 2*Bp/ss-nzaathout -1
+        nspant = 2*Bp/ss-nzaathout +1
         nvrang = Lp/sg
         nkruising = nvrang*(nspant+nzaathout)
         Llas_plaat = nlas*Lp 
@@ -229,7 +229,7 @@ class totaal():
             if loc4en5[i] > loc3[i]:
                 urenpplaat[i] = loc4en5[i]
 
-        personeel = aantal_jaar*90*urenpplaat
+        personeel = aantal_jaar*90*urenpplaat*3/5
         loods = 1200
         nplekken = ((urenpplaat* aantal_jaar/3)/8400)
         nplekkenint = np.ceil(nplekken)
@@ -240,7 +240,7 @@ class totaal():
         vastekosten = 70*loods +300000*nplekkenint*station
 
         totaal = materiaal + personeel + vastekosten 
-        return totaal, materiaal, personeel, vastekosten,urenpplaat
+        return totaal, materiaal, personeel, vastekosten,urenpplaat,bezettingsgraad
 
 
 
@@ -249,8 +249,8 @@ g_h_4_tot, g_h_4_mat,g_h_4_per,g_h_4_vast,g_h_man = totaal.groot_hand(4)
 
 
 
-k_r_4_tot, k_r_4_mat,k_r_4_per,k_r_4_vast,k_r_man = totaal.klein_robot(4)
-g_r_4_tot, g_r_4_mat,g_r_4_per,g_r_4_vast,g_r_man = totaal.groot_robot(4)
+k_r_4_tot, k_r_4_mat,k_r_4_per,k_r_4_vast,k_r_man,bezetting_k = totaal.klein_robot(4)
+g_r_4_tot, g_r_4_mat,g_r_4_per,g_r_4_vast,g_r_man,bezetting_g = totaal.groot_robot(4)
 
 
 print([["scenario","manuren"],
@@ -264,6 +264,9 @@ print([["scenario","totaal","materiaal","personeel","vast"],
        ["groot hand",g_h_4_tot, g_h_4_mat,g_h_4_per,g_h_4_vast],
        ["klein robot",k_r_4_tot, k_r_4_mat,k_r_4_per,k_r_4_vast],
        ["groot robot",k_r_4_tot, k_r_4_mat,k_r_4_per,k_r_4_vast]])
+
+print("bezettingsgraad, klein",bezetting_k,"\n"
+      "bezettingsgraad, groot",bezetting_g)
 
 
 def bar_plot():
@@ -284,5 +287,3 @@ def bar_plot():
     plt.grid()
     figure.savefig("./construeren/plaatproductie/barplot.png")
 
-
-bar_plot()
