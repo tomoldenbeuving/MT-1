@@ -183,9 +183,9 @@ for k in range(len(P_theoretisch)):
         
 
 
-def plot_P_v(titel):
+def plot_P_t(titel):
         fig, (ax1, ax2) = plt.subplots(nrows=2, sharex=True, gridspec_kw={'height_ratios': [3, 1]},figsize=(12,10))
-        ax1.set_ylabel(r"$P_E \; [N]$")
+        ax1.set_ylabel(r"$P_E \; [kW]$")
         ax1.set_xlabel(r"$t \; [s]$")
         ax1.plot(model.mytime,model.P_E,label="Vermogen")
         ax1.ticklabel_format(style='sci', axis='y', scilimits=(0,0))
@@ -207,18 +207,45 @@ def plot_P_v(titel):
         titelfig= "./Plots/"+titel+".png"
         fig.savefig(titelfig, bbox_extra_artists=(legend,), bbox_inches='tight')
 
+def plot_P_v(titel):
+        fig, (ax1, ax2) = plt.subplots(nrows=2, sharex=False, gridspec_kw={'height_ratios': [3, 1]},figsize=(12,10))
+        ax1.set_ylabel(r"$P_E \; [kW]$")
+        ax1.set_xlabel(r"$v_s \; [ms^{-1}]$")
+        ax1.plot(model.v_s,model.P_E,label="Vermogen")
+        ax1.ticklabel_format(style='sci', axis='y', scilimits=(0,0))
+        ax1.grid()
+
+        ax2.plot(model.mytime,model.ov_Y_set,linestyle="dashed",label="Y parms")
+        ax2.plot(model.mytime,model.ov_X_set,linestyle="dashed",label="X parms")
+        ax2.ticklabel_format(style='sci', axis='y', scilimits=(0,0))
+        ax2.grid()
+
+        # Create a single legend object
+        handles, labels = [], []
+        for ax in fig.axes:
+                for h, l in zip(*ax.get_legend_handles_labels()):
+                        handles.append(h)
+                        labels.append(l)
+        legend = fig.legend(handles, labels, loc='upper center', bbox_to_anchor=(0.5, 0), ncol=3)
+
+        titelfig= "./Plots/"+titel+".png"
+        fig.savefig(titelfig, bbox_extra_artists=(legend,), bbox_inches='tight')
+
+
 
 def eta_P(titel):
         figure = plt.figure(figsize=(16,10))
         ax = plt.subplot(111)
         plt.ylabel(r"$\eta \; [-]$")
         plt.xlabel(r"$P_e \; [kW]$")
+        plt.ylim(0,1)
         plt.title(titel)
         plt.plot(P_theoretisch[400:],eta_e[400:],label="$\eta_{totaal}$")
         plt.plot(P_theoretisch[400:],eta_td[400:],  linestyle="dashed",label="$\eta_{td}$")
         plt.plot(P_theoretisch[400:],eta_m[400:],   linestyle="dashed",label="$\eta_{m}$")
         plt.plot(P_theoretisch[400:],eta_q[400:],   linestyle="dashed",label="$\eta_{q}$")
         plt.plot(P_theoretisch[400:],eta_comb[400:],linestyle="dashed",label="$\eta_{comb}$")
+        plt.axhline(0.38,linestyle=":",label="$\eta_{model}$")
         plt.ticklabel_format(style='sci', axis='y', scilimits=(0,0))
         titelfig= "./Plots/"+titel+".png"
         plt.grid()
@@ -234,4 +261,38 @@ def eta_P(titel):
 
         plt.savefig(titelfig)
 
-eta_P("eta als functie van P_e")
+
+v_theoretisch = model.v_s
+
+def eta_v(titel):
+        fig, (ax1, ax2) = plt.subplots(nrows=2, sharex=False, gridspec_kw={'height_ratios': [3, 1]},figsize=(16,10))
+        ax1.set_ylabel(r"$\eta \; [-]$")
+        ax1.set_xlabel(r"$v_s \; [ms^{-1}]$")
+        ax1.plot(v_theoretisch[400:],eta_e[400:],label="$\eta_{totaal}$")
+        ax1.plot(v_theoretisch[400:],eta_td[400:],  linestyle="dashed",label="$\eta_{td}$")
+        ax1.plot(v_theoretisch[400:],eta_m[400:],   linestyle="dashed",label="$\eta_{m}$")
+        ax1.plot(v_theoretisch[400:],eta_q[400:],   linestyle="dashed",label="$\eta_{q}$")
+        ax1.plot(v_theoretisch[400:],eta_comb[400:],linestyle="dashed",label="$\eta_{comb}$")
+        ax1.axhline(0.38,linestyle=":",label="$\eta_{model}$")
+        ax1.ticklabel_format(style='sci', axis='y', scilimits=(0,0))
+        ax1.grid()
+
+        ax2.plot(model.mytime,model.ov_Y_set,linestyle="dashed",label="Y parms")
+        ax2.plot(model.mytime,model.ov_X_set,linestyle="dashed",label="X parms")
+        ax2.ticklabel_format(style='sci', axis='y', scilimits=(0,0))
+        ax2.grid()
+
+        # Create a single legend object
+        handles, labels = [], []
+        for ax in fig.axes:
+                for h, l in zip(*ax.get_legend_handles_labels()):
+                        handles.append(h)
+                        labels.append(l)
+        legend = fig.legend(handles, labels, loc='upper center', bbox_to_anchor=(0.5, 0), ncol=3)
+
+        titelfig= "./Plots/"+titel+".png"
+        fig.savefig(titelfig, bbox_extra_artists=(legend,), bbox_inches='tight')
+
+        plt.savefig(titelfig)
+
+eta_v("eta over v")
