@@ -89,7 +89,7 @@ k = "%.4f" % k
 
 
 def plot(var,):
-        figure = plt.figure(figsize=(8,5))
+        figure = plt.figure(figsize=(8,6))
         plt.xlabel(r"$F_n^4/C_{F,m}$")
         plt.ylabel(r"$C_{T,m}/C_{F,m}$")
         titel = "Prohaska Plot weerstandsproef, k= "+str(k)
@@ -118,7 +118,7 @@ f = np.poly1d(fit)
 x = np.linspace(0,7,100)
 
 def plot_R_v(titel):
-        figure = plt.figure(figsize=(16,10))
+        figure = plt.figure(figsize=(8,6))
         ax = plt.subplot(111)
         plt.ylabel(r"$R_s \; [N]$")
         plt.xlabel(r"$v_s \; [ms^{-1}]$")
@@ -141,7 +141,7 @@ def plot_R_v(titel):
         ax.legend(loc='upper center', bbox_to_anchor=(0.5, -0.1),
                 fancybox=True, shadow=True, ncol=3)
 
-        plt.savefig(titelfig)
+        plt.savefig(titelfig,dpi=1200)
 
 R_v = np.array([R_ts_vb,v_s_vb])
 R_v = R_v.T
@@ -184,7 +184,7 @@ for k in range(len(P_theoretisch)):
 
 
 def plot_P_t(titel):
-        fig, (ax1, ax2) = plt.subplots(nrows=2, sharex=True, gridspec_kw={'height_ratios': [3, 1]},figsize=(12,10))
+        fig, (ax1, ax2) = plt.subplots(nrows=2, sharex=True, gridspec_kw={'height_ratios': [3, 1]},figsize=(8,6))
         ax1.set_ylabel(r"$P_E \; [kW]$")
         ax1.set_xlabel(r"$t \; [s]$")
         ax1.plot(model.mytime,model.P_E,label="Vermogen")
@@ -205,10 +205,10 @@ def plot_P_t(titel):
         legend = fig.legend(handles, labels, loc='upper center', bbox_to_anchor=(0.5, 0), ncol=3)
 
         titelfig= "./Plots/"+titel+".png"
-        fig.savefig(titelfig, bbox_extra_artists=(legend,), bbox_inches='tight')
+        fig.savefig(titelfig, bbox_extra_artists=(legend,), bbox_inches='tight', dpi=1200)
 
 def plot_P_v(titel):
-        fig, (ax1, ax2) = plt.subplots(nrows=2, sharex=False, gridspec_kw={'height_ratios': [3, 1]},figsize=(12,10))
+        fig, (ax1, ax2) = plt.subplots(nrows=2, sharex=False, gridspec_kw={'height_ratios': [3, 1]},figsize=(8,6))
         ax1.set_ylabel(r"$P_E \; [kW]$")
         ax1.set_xlabel(r"$v_s \; [ms^{-1}]$")
         ax1.plot(model.v_s,model.P_E,label="Vermogen")
@@ -229,24 +229,24 @@ def plot_P_v(titel):
         legend = fig.legend(handles, labels, loc='upper center', bbox_to_anchor=(0.5, 0), ncol=3)
 
         titelfig= "./Plots/"+titel+".png"
-        fig.savefig(titelfig, bbox_extra_artists=(legend,), bbox_inches='tight')
+        fig.savefig(titelfig, bbox_extra_artists=(legend,), bbox_inches='tight',dpi=1200)
 
 
 
 def eta_P(titel):
-        figure = plt.figure(figsize=(16,10))
+        figure = plt.figure(figsize=(8,6))
         ax = plt.subplot(111)
         plt.ylabel(r"$\eta \; [-]$")
-        plt.xlabel(r"$P_e \; [kW]$")
-        plt.ylim(0,1)
+        plt.xlabel(r"$P_e \; [W]$")
+        plt.ylim(0,1.1)
         plt.title(titel)
         plt.plot(P_theoretisch[400:],eta_e[400:],label="$\eta_{totaal}$")
-        plt.plot(P_theoretisch[400:],eta_td[400:],  linestyle="dashed",label="$\eta_{td}$")
-        plt.plot(P_theoretisch[400:],eta_m[400:],   linestyle="dashed",label="$\eta_{m}$")
-        plt.plot(P_theoretisch[400:],eta_q[400:],   linestyle="dashed",label="$\eta_{q}$")
-        plt.plot(P_theoretisch[400:],eta_comb[400:],linestyle="dashed",label="$\eta_{comb}$")
+#        plt.plot(P_theoretisch[400:],eta_td[400:],  linestyle="dashed",label="$\eta_{td}$")
+#        plt.plot(P_theoretisch[400:],eta_m[400:],   linestyle="dashed",label="$\eta_{m}$")
+#        plt.plot(P_theoretisch[400:],eta_q[400:],   linestyle="dashed",label="$\eta_{q}$")
+#        plt.plot(P_theoretisch[400:],eta_comb[400:],linestyle="dashed",label="$\eta_{comb}$")
         plt.axhline(0.38,linestyle=":",label="$\eta_{model}$")
-        plt.ticklabel_format(style='sci', axis='y', scilimits=(0,0))
+        plt.ticklabel_format(style='sci', axis='both', scilimits=(0,0))
         titelfig= "./Plots/"+titel+".png"
         plt.grid()
         
@@ -259,13 +259,16 @@ def eta_P(titel):
         ax.legend(loc='upper center', bbox_to_anchor=(0.5, -0.1),
                 fancybox=True, shadow=True, ncol=3)
 
-        plt.savefig(titelfig)
+        plt.savefig(titelfig,dpi=1200)
+
+
+eta_P("eta als funcite van P_e")
 
 
 v_theoretisch = model.v_s
 
 def eta_v(titel):
-        fig, (ax1, ax2) = plt.subplots(nrows=2, sharex=False, gridspec_kw={'height_ratios': [3, 1]},figsize=(16,10))
+        fig, (ax1, ax2) = plt.subplots(nrows=2, sharex=False, gridspec_kw={'height_ratios': [3, 1]},figsize=(8,6))
         ax1.set_ylabel(r"$\eta \; [-]$")
         ax1.set_xlabel(r"$v_s \; [ms^{-1}]$")
         ax1.plot(v_theoretisch[400:],eta_e[400:],label="$\eta_{totaal}$")
@@ -293,6 +296,6 @@ def eta_v(titel):
         titelfig= "./Plots/"+titel+".png"
         fig.savefig(titelfig, bbox_extra_artists=(legend,), bbox_inches='tight')
 
-        plt.savefig(titelfig)
+        plt.savefig(titelfig,dpi=1200)
 
 eta_v("eta over v")
